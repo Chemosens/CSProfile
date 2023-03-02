@@ -1,0 +1,11 @@
+name: shiny
+title:
+username:
+account: chemoshiny
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4268378
+bundleId: 4719307
+url: https://chemoshiny.shinyapps.io/shiny/
+when: 1623768751.49009
+lastSyncTime: 1623768751.49009

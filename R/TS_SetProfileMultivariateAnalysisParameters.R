@@ -1,0 +1,7 @@
+TS_SetProfileMultivariateAnalysisParameters=function(profileObject, onlySignificantAttributesInMultivariateAnalysis,alphaForSelectionOfSignificantAttributes)
+{
+	profileObject[["OnlySignificantAttributesInMultivariateAnalysis"]]=onlySignificantAttributesInMultivariateAnalysis
+	profileObject[["AlphaForSelectionOfSignificantAttributes"]]=alphaForSelectionOfSignificantAttributes
+	
+	return(profileObject)
+}

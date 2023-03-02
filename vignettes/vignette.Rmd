@@ -1,0 +1,168 @@
+---
+title: "Statistical analysis of TDS with chemosensR package"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    fig_height: 6
+    fig_width: 6
+vignette: >
+  %\VignetteIndexEntry{chemosensR package}    %\VignetteEngine{knitr::rmarkdown} 
+  \usepackage[utf8]{inputenc}
+
+header-includes: \usepackage{amsfonts}
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+chemosensR aims to analyze data from different protocols of sensory analysis -especially providing from TimeSens software ,but not only-. Each protocol contains a read function, then analyses. The protocol is indicated with a prefix in the related R-functions. This vignette adresses TDS analysis
+The library can be loaded by the following command.  
+```{r, eval=TRUE,echo=TRUE}
+library(chemosensR)
+```
+
+# TDS Analyses
+
+TDS analyses can be divided into four categories: the analysis of panelist behaviour (number of clicks, ...) to help the panel leader to check his data ; the analysis of dominance to observe the kinetics of TDS ; the analysis of durations and the analysis of citations.
+
+## Analysis of panelist behaviours
+These analyses are based on the calculation of panelist behavior indicators. Sequence start is the time to click on the first descriptor, sequence stop is the stop time, sequence duration is the duration of the total sequence, the number of descriptors (resp. number of clicks) is the number of descriptors (resp. the number of clicks) used during one evaluation. Descriptor duration is the median of duration of one given descriptor for one product.
+
+### Panel behaviour distribution
+
+```{r, eval=TRUE,echo=TRUE}
+data(tds)
+tdsPanelBehaviourDistribution(tds)
+?tdsPanelBehaviourDistribution
+```
+
+### Panel behaviour table
+A colour code in html file indicates potential issues in the data that are custumized by following parameters (not represented in the vignette).
+
+```{r, eval=TRUE,echo=TRUE}
+table=tdsPanelBehaviour(tds)
+table$df
+```
+
+### ANOVA of behaviours
+
+This output returns the results of a mixed Two-Way ANOVA (product*subject) for each indicator of behavior.
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+behavioralAnova=tdsAnova(tds,alpha=0.05,title=NULL,type="behaviour",columns=c("G_Mean","F_Product","P_Product","F_Product_Significance"))
+behavioralAnova$df
+```
+
+## Dominances Analysis
+
+### Individual sequences
+
+```{r, eval=TRUE,echo=TRUE}
+indseq=tdsSequences(tds) 
+indseq$output$sequences
+```
+
+### Dominance curves
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+curves=tdsDominanceCurves(tds,type="notstd",rows="product",cols="rep",color="descriptor",alpha=0.05,smooth=TRUE,draw=c("significance","hasard","graymask","periods"),fontSizeCex = NULL)
+plot(curves$gg)
+```
+
+### Standardized dominance curves
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+curves=tdsDominanceCurves(tds,rows="product",cols="rep",color="descriptor",alpha=0.05,smooth=TRUE,draw=c("significance","hasard","graymask","periods"),fontSizeCex = NULL)
+plot(curves$gg)
+```
+
+### Trajectory PCA
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+trajPca=tdsTrajectoryPca(tds)
+trajPca$output$biplot
+```
+
+### Difference curves
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+diffcurves=tdsDifferenceDominanceCurves(tds)
+ diffcurves$output
+```
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+diffcurves2=tdsDifferenceDominanceCurves(tds,pairs=matrix(c("P001","P003"),1,2))
+ diffcurves2$output
+```
+
+## Duration analysis
+
+### Duration distributions
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+tdsMaxDominances(tds)
+```
+
+### Barplot of durations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+tdsBarplot(tds)
+```
+
+### ANOVA of durations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+anovares=tdsAnova(tds,alpha=0.05,title=NULL,type="durations",columns=c("G_Mean","F_Product","P_Product","F_Product_Significance"))
+```
+
+### PCA of durations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+respca=tdsPca(tds)
+names(respca)
+head(respca$indivCoord)
+plot(respca$gg)
+```
+
+### CVA of durations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+rescva=tdsCva(tds)
+names(rescva)
+head(rescva$indivCoord)
+plot(rescva$gg)
+```
+
+## Citation analysis
+
+### Citation distributions
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+tdsDistribution(tds, type="citations")
+```
+
+### Barplot of citations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+tdsBarplot(tds,type="citations")
+```
+
+### ANOVA of citations
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+anovares=tdsAnova(tds,alpha=0.05,title=NULL,type="durations",columns=c("G_Mean","F_Product","P_Product","F_Product_Significance"))
+```
+
+### MRCA
+
+
+
+# Appendix
+
+
+# References

@@ -1,0 +1,353 @@
+sujet;produit;description;group
+L001;P002;sensation de fleur d oranger agreable s estompe tres vite;1
+L001;P003;brouillon legerement sucre indefinissable;1
+L001;P004;j arrive pas a definir l odeur me fait penser a l ancienne colle cleopatra qu on avait maternelle plus entetant pas tres agreable;1
+L001;P005;floral plus agreable quand il s estompe un peu;1
+L003;P002;le bergamote vieille fleur;1
+L003;P003;bonbon acidule;1
+L003;P004;epicer frais;1
+L003;P005;epicer frais;1
+L004;P002;passionne amoureux stimule;1
+L004;P003;relaxant calmant chaleureux;1
+L004;P004;cool dormant simple refraichissant;1
+L004;P005;plaisant frais charmant;1
+L005;P002;champs fleur fleurs coupees vert nature;1
+L005;P003;cuir luxe ambiance raffine ;1
+L005;P004;vanille frais agrumes nature fruit;1
+L005;P005;citron bas de gamme toilettes liquide vaisselle;1
+L006;P002;parfum trop fort et pas agreable a respirer;1
+L006;P003;parfum tres desagreable  a eviter ;1
+L006;P004;parfum boise qui dure    ;1
+L006;P005;donc c est une odeur agreable et douce est qui est fraiche;1
+L007;P002;floral ete ile chaud;1
+L007;P003;fruite bonbon chimique ecoeurant;1
+L007;P004;piquant epice menthole assez desagreable;1
+L007;P005;fraicheur fruite citronne agreable;1
+L008;P002;NA;1
+L008;P003;NA;1
+L008;P004;NA;1
+L008;P005;NA;1
+L009;P002;fleuri printemps agreable  ;1
+L009;P003;sucre banane bonbon  ;1
+L009;P004;menthe poivre tres leger d odeur de terre odeur rappelant l homme odeur forte;1
+L009;P005;poivre menthe tres fort odeur d homme ;1
+L010;P002;discret fruite agreable supportable;1
+L010;P003;pas naturel sent produit chimique produit entretien;1
+L010;P004;floral nature leger;1
+L010;P005;agreable leger chlorophylle;1
+L011;P002;exotique sequencer a l inde;1
+L011;P003;oriental fait penser aux mille et une nuits;1
+L011;P004;boise  tropical fait penser a la foret;1
+L011;P005;musque  exotique;1
+L012;P002;sucre bonbon printemps fleur;1
+L012;P003;parfum de cuisine caramel refroidi je n aime pas trop;1
+L012;P004;legerement sucre j ai parfum d agrumes agreable a sentir;1
+L012;P005;legerement acidule fleurs coupees;1
+L015;P002;suave surprenant;1
+L015;P003;chimique bonbons ecoeurant;1
+L015;P004;masculin entetant;1
+L015;P005;citronne leger agreable;1
+L016;P002;doux reconfortant apaisant;1
+L016;P003;fruite exotique energisante;1
+L016;P004;epice;1
+L016;P005;doux frais delicat;1
+L017;P002;capiteux un peu odeur alcool de fruit alors fleur blanche ressens un peu abricot peche;1
+L017;P003;fruit mur fruit jaune melon  ;1
+L017;P004;predominance fleurs blanches;1
+L017;P005;alors fleurs blanches sur la fin fruit jaune plus subtil un peu fruit rouge;1
+L018;P002;parfum tres frais;1
+L018;P003;parfum fruite acidule gout d un bonbon;1
+L018;P004;parfum prononce fort;1
+L018;P005;parfum floral bien equilibre agreable;1
+L019;P002;parfum agreable legerement fleuri ou fruite tres bien;1
+L019;P003;gourmand tres agreable me rappelle un peu les sensations de gateaux;1
+L019;P004;identique au 1er et parfum sentir me fait penser a un produit que l on mettrait dans les wc;1
+L019;P005;vraiment poivre apprecie pas vraiment;1
+L020;P002;saveurs du fruit rouge epices assez agreable au nez;1
+L020;P003;odeurs de bonbons sucres chewing-gum a la fraise ;1
+L020;P004;saveur plutot forte  d amande amere que j apprecie peu;1
+L020;P005; saveurs d agrumes citronnee;1
+L021;P002;fruit melon agreable douce;1
+L021;P003;odeur fruitee forte odeur;1
+L021;P004;  une odeur epicee oriental;1
+L021;P005;agrumes acide odeur d ete du sud une note de menthe;1
+L022;P002;odeur de fleur d oranger de patisserie cuisine avec de doux parfums plutot agreable;1
+L022;P003;odeur de sucre tres forte entetante difficile a supporter longtemps;1
+L022;P004;odeur forte assez desagreable qui fait penser a de la naphtaline  melangee a du produit wc pas agreable pour moi;1
+L022;P005;odeur legerement epicee voire poivree odeur agreable pour une ambiance que je verrais dans une salle un salon;1
+L023;P002;acide fort chimique;1
+L023;P003;odeur trop forte odeur de fruit pourri  ;1
+L023;P004;odeurs de fleurs l odeur de noix pas trop fort agreable;1
+L023;P005;odeur citron assez legere agreable;1
+L024;P002;c est vraiment un parfum d ambiance qui sent la fleur le fruit j aime bien;1
+L024;P003;fruit rouge fraise un parfum simple et discret   un parfum yaourt fruit perouges discret;1
+L024;P004;assez fort pas parfum d ambiance ca sent  les bois;1
+L024;P005;  parfum amer  fruits et fleurs fort a certains moments mais qui sent bon quand meme;1
+L025;P002;floral relaxant apaisant;1
+L025;P003;nature floral relaxant detente apaisant;1
+L025;P004;relaxation detente nature;1
+L025;P005;calme serenite nature floral;1
+L026;P002;sensation agreable ecoute;1
+L026;P003;parfum pas tres agreable  ;1
+L026;P004;se serait plutot un parfum pour toilettes;1
+L026;P005;parfum tres frais et apaisant  ;1
+L027;P002;doux fruite plutot apprecie apaisant calme relaxant;1
+L027;P003;bonbon fete foraine sucre enfance chimique chewing-gum;1
+L027;P004;produits d hygiene produit de nettoyage pour sol chimique rose pas tres apprecie adresse appreciee;1
+L027;P005;citron the bar 4h sirop;1
+L028;P002;tres agreable fruite leger j aime beaucoup n entete pas   ;1
+L028;P003;c est desagreable je n aime pas du tout j ai senti le melon que j aie habituellement mais pas en parfum d ambiance je ne pourrais pas rester dans cette ambiance ce parfum s accroche en plus!!  ;1
+L028;P004;discret plus boise agreable mais reste moins en memoire que le 2e;1
+L028;P005;"alors c eparfum j aime bien; il est plus sucrec est moins un parfum pour cacher les mauvaises odeurs une laisse une bonne impression";1
+L029;P002;odeur agreable fraiche champetre  printaniere florale douce;1
+L029;P003;parfum un peu trop fort un peu trop persistant sucre chimique;1
+L029;P004;parfum agreable un peu fort entetant qui couvre des odeurs un peu floral qui fait mal a la tete;1
+L029;P005;parfum agreable floral doux naturel  ;1
+L030;P002;odeur diffuse artificielle;1
+L030;P003;odeur assez marquee artificielle difficile a identifier;1
+L030;P004;odeur tres prononcee boisee mais chimique;1
+L030;P005;odeur diffuse - florale;1
+L031;P002;pas beaucoup d odeur trop doux  ressenti bouquet de fleurs tres leger;1
+L031;P003;parfum trop fort au nez  un peu trop chimique  ressenti parfum citron ;1
+L031;P004;tres agreable doux fleuri  ressenti lavande ;1
+L031;P005;parfum tres agreable  doux au nez  ressenti menthe;1
+NL001;P002;fort fleuri entetant;2
+NL001;P003;fruit pasteque melon;2
+NL001;P004;toilettes chimique;2
+NL001;P005;menthe chewing gum;2
+NL002;P002;doux particulier c est difficile d ecrire j ai droit de ressentir;2
+NL002;P003;synthetique entetant caramelise sucre;2
+NL002;P004;fort puissant poivre pas reposant;2
+NL002;P005;doux reposant verveine anise;2
+NL003;P002;gel pour les mains l amande douce;2
+NL003;P003;ca sent tres fort et je n arrive pas a decrire ce que s est;2
+NL003;P004;desodorisant des toilettes senteur des bois  foret ;2
+NL003;P005;la menthe le bonbon a l eucalyptus;2
+NL004;P002;odeur cologne;2
+NL004;P003;fruiter;2
+NL004;P004;fraicheur marine;2
+NL004;P005;ambre;2
+NL005;P002;c est tres fort au debut mais apres on s habitue c est tres frais sent le chevrefeuille;2
+NL005;P003;sucre fruit et doux;2
+NL005;P004;la nature   bois un petit peu fort massage  detente;2
+NL005;P005;le citron les agrumes et l acidite;2
+NL006;P002;alors pour moi on est sur quelque chose de beaucoup plus boise a la limite du musc un petit peu epice et puis c est un petit peu releve;2
+NL006;P003;tres fort en nez tres animal meme presque trop masculin j ai rien contre la masculinite trop masculin arret de metro;2
+NL006;P004;un parfum tres prenant on est avec une forte odeur de lila ou quelque chose qui ressemble assez sucree au nez;2
+NL006;P005;tres floral avec une pointe d acidite au nez ca me fait penser un petit peu entre du mimosa et des agrumes en fait alors;2
+NL007;P002;ca sent toujours le frais base de citron;2
+NL007;P003;fruits des bois fruits rouge la fraisepetite note epice;2
+NL007;P004;senti de la cannelle chose de frais;2
+NL007;P005;ecorse jasmin on dirait un desodorisant pour toilette;2
+NL008;P002;patchouli peu agreable l odeur;2
+NL008;P003;fruite;2
+NL008;P004;fruite;2
+NL008;P005;exotique tres agreable;2
+NL009;P002;odeur de gel d ouche tres fort ;2
+NL009;P003;odeur de bonbon ou chewing-gum au fruit;2
+NL009;P004;odeur de l insecte punaise ecrasee;2
+NL009;P005;parfum ressemble a du parfum de femme il est tres  puissan ;2
+NL010;P002;amer faible intensite   ancien amer;2
+NL010;P003;desagreable chimique banane agressif;2
+NL010;P004;artificiel bonbon;2
+NL010;P005;jeune fraicheur agrume jeune;2
+NL011;P002;odeur fruitee  un petit peu plus persistante que la precedente a base de fleur d oranger d oranger d agrumes;2
+NL011;P003;surprenante au debut plutot inhabituelle sucre derriere je pesais plus au chocolat reglisse cannelle au debut mais finalement odeur de fruit sucre surprenante au debut  finalement agreable sur la duree;2
+NL011;P004;non je n aime pas du tout  c est une odeur plus entetante pour moi odeur tres florale oui on a l habitude de sentir sur un parfum dans les toilettes et j apprecie pas du tout  sans nouveaute dans cette odeur pour moi;2
+NL011;P005;odeur plutot connue habituelle evidente un melange de rose  de muguet odeur evidente pour un parfum d ambiance donc sans surprise ce n est pas surprenant donc c est pas forcement une odeur que j affectionne le plus;2
+NL012;P002;vacances frais;2
+NL012;P003;bonbon sucre fruit;2
+NL012;P004;vert potager legumes;2
+NL012;P005;savon propre salle de bain;2
+NL013;P002;senteur tres agreable reconfortant expressif  tres frais reconfortant;2
+NL013;P003;assez terne odeur vanille moins odorante pas de fraicheur  pas beaucoup de fraicheur;2
+NL013;P004;legerement parfume odeur foret agreable;2
+NL013;P005;tres leger senteur agreable odeur cypres tres agreable;2
+NL014;P002;citronne fleurs frais chimique  desodorisant wc fort ;2
+NL014;P003;sucre vanille puissant  masculin nauseabond odeur familiere  ;2
+NL014;P004;sucre pain d epices chimique vaporisant toilettes odeur trop forte - trop prononcee;2
+NL014;P005;vanille agrumes boise epice pin sensation de fraicheur odeur boisee trop prononce;2
+NL015;P002;fruites odeur pas tres forte ete odeur moyenne fruite;2
+NL015;P003;odeur pas agreable odeur bonbon parfum pour wc;2
+NL015;P004;odeur forte pas agreable nuit;2
+NL015;P005;agrumes bonne odeur ete fruite agrumes;2
+NL016;P002;fleurie agreable doux ;2
+NL016;P003;ambiance gourmande pommes caramelisees sucree;2
+NL016;P004;amende plutot prononce odeur douce;2
+NL016;P005;tisane camomille assez lege  pas facile a definir;2
+NL017;P002;discret fleurie doux moelleux;2
+NL017;P003;sucre et fruite doux;2
+NL017;P004;un peu fort  tres epicee plutot agressif odeur tres prononce puissant deasgreable pas tres agreable;2
+NL017;P005;epice fin  exotique agreable;2
+NL018;P002;odeur agreable beaucoup plus fine;2
+NL018;P003;odeur prenante mais agreable a sentir;2
+NL018;P004;parfum avec une odeur qui pique est vraiment trop fortepas tres agreable ;2
+NL018;P005;odeur un peu forte un peu trop prononce qui pique presque le nez;2
+NL019;P002;fruits rouges rose myrtille printemps relaxation;2
+NL019;P003;mandarine campagne weekend promenade;2
+NL019;P004;bebe brise marine bois;2
+NL019;P005;citronnelle fraicheur printemps ete calme vacances;2
+NL020;P002;floral parfum;2
+NL020;P003;caramel vanille floral;2
+NL020;P004;boise floral muguet;2
+NL020;P005;menthe fraicheur citron;2
+NL021;P002;frais floral doux ;2
+NL021;P003;sucre fort concentre odeur de bonbon;2
+NL021;P004;boisee odeur de nature piquante au premier abord;2
+NL021;P005;frais mais doux odeur masculine;2
+NL022;P002;une odeur fleurie tres agreable j avais l impression de sentir une rose une odeur persistante qui n a pas diminue avec le temps;2
+NL022;P003;c est une odeur sucree qui parait artificiel qui pique un peu la gorge et qui reste longtemps dans le nez elle est pas desagreable mets beaucoup trop charge beaucoup trop presente;2
+NL022;P004;une odeur plutot fruitee agreable tres douce je dirais plutot que c est une odeur feminine;2
+NL022;P005;c est une odeur assez enfantine assez sucree qui ne marque pas pas agreable mais pas desagreable non plus ;2
+NL023;P002;fraicheur verdure fontaine;2
+NL023;P003;fraise sucre artificiel chewing-gum;2
+NL023;P004;tres sucre trop fort entetant je n aime pas du tout;2
+NL023;P005;ete fruit soleil agreable;2
+NL024;P002;parfum d agrumes rose parfum de pivoine citron pamplemousse;2
+NL024;P003;parfum des iles vanille noix de coco;2
+NL024;P004;fleurie parfum d amande;2
+NL024;P005;parfum d agrumes citronnelle pamplemousse melisse;2
+NL025;P002;yaourt a la fraise citronne odeur peu agreable avec une fin un peu seche;2
+NL025;P003;odeur de fete foraine barbe-a-papa ou pomme d amour attenuee par une odeur lactee trop fort;2
+NL025;P004;odeur d orgeat punaise derangee! resineux agrumes un peu amere;2
+NL025;P005;fruits d ete melon leger;2
+NL026;P002;senteur de the tres legere;2
+NL026;P003;senteur fruitee;2
+NL026;P004;senteur florale paisaible;2
+NL026;P005;senteur orientale the;2
+NL027;P002;parfum leger parfum d agrumes fruite agrumes fruite peut-etre melon;2
+NL027;P003;une odeur de beurre un petit beurre en biscuit en vanille en odeur j aime pas du tout;2
+NL027;P004;je sens des notes boisees par contre ca ressemble trop a parfum pour desodoriser des toilettes donc je le prends bien;2
+NL027;P005;et ca me fait penser a des fleurs blanches j aime moyennement;2
+NL028;P002;agreable fleur;2
+NL028;P003;pas tres agreable une espece d odeur de fruits melangee;2
+NL028;P004;difficile d identifier des parfums pas tres agreable;2
+NL028;P005;parfum floral assez agreable;2
+NL029;P002;caramel agreable leger sucrerie   l abbaye de france;2
+NL029;P003;agressif puissant prend au nez produit de nettoyage;2
+NL029;P004;frais anisee agreable lessive;2
+NL029;P005;doux citronne apaisant lingette essui-doigts;2
+NL030;P002;j aime bien parfum leger odeur de frais;2
+NL030;P003;je n aime pas trop je n arrive pas a trouver l odeur;2
+NL030;P004;odeurs de plantes aromatiques je n aime pas trop;2
+NL030;P005;j aime bien odeurs de frais avec une odeur de citron ou agrumes;2
+NL031;P002;une bonne odeur agreable mais il faut voir a la longue si elle n est pas enivrante;2
+NL031;P003;ignoble un melange de plusieurs parfums tres difficile de le sentir plusieurs fois de suite ;2
+NL031;P004;je la trouve trop epice je n aime pas vraiment ;2
+NL031;P005;moyen tout depend dans quelle piece va se parfum salle de bain  toilettes oui mais pour moi pas dans les autres pieces ;2
+NL032;P002;ce parfum est tres agreable il est fruite ca sent les vacances et le soleil;2
+NL032;P003;ce parfum sent trop fort et pas du tout agreable j arrive pas a definir ce que ca soit mais c est trop fort;2
+NL032;P004;ce parfum n est pas desagreable mais un peu fort quand meme je le trouve  un peu sucre parfum d ambiance pour de grandes pieces ouvertes;2
+NL032;P005;j ai l impression d avoir deja senti ce parfum a tout a l heure comme le premier mais ca sent pas trop fort                                                              il reste plus leger et moins desagreable;2
+NL033;P002;parfum de fleurs tres agreable;2
+NL033;P003;parfum de bonbon agreable;2
+NL033;P004;parfum desagreable;2
+NL033;P005;bon parfum de fruits;2
+NL034;P002;odeur agreable boise milieu medical;2
+NL034;P003;trop sucre  bonbon trop fort chewing-gum;2
+NL034;P004;maison de personnes agees odeur de fleurs parfum de toilette pas agreable agreable maison personne agee;2
+NL034;P005;frais acidule agreable leger;2
+NL035;P002;fruite frais agreable;2
+NL035;P003;fruits rouges corse;2
+NL035;P004;epice herbe masculin boise;2
+NL035;P005;agreable menthole frais masculin;2
+NL036;P002;doux et fruiter  sa sent bonbon au melon;2
+NL036;P003;sensation frais mais ressenti ca me donne mal a la tete;2
+NL036;P004;sensation trouve que ses frai parfum bien etre pour se soulager et  pour se reposer;2
+NL036;P005;parfum d ambiance fleury et frais comme les produits quand ont lavent le sol;2
+NL037;P002;parfum est sensiblement le meme que le 3 eme peut etre un peu plus fort  ;2
+NL037;P003;l odeur de ce parfum est particuliere et indeterminee  ;2
+NL037;P004;parfum fruitier un peu plus fort que le premier mais beaucoup moins que le 2eme bien;2
+NL037;P005;parfum un peu fort;2
+NL038;P002;fruiter doux;2
+NL038;P003;sucre  chewing-gum;2
+NL038;P004;fort sucre;2
+NL038;P005;the doux;2
+NL039;P002;un bonne odeur de citron manger aux fleurs quand meme une sensation tres agreable;2
+NL039;P003;il a une odeur tres fort on dirait un yaourt perime une odeur pas du tout agreable;2
+NL039;P004;alors celui-la il a un parfum de noel il est epice  la cannelle peut-etre ou de la badiane il est agreable je l acheterai volontier;2
+NL039;P005;il sent les vacances odeur de soleil fraicheur agrumes c est un parfum agreable;2
+NL040;P002;de plus en plus fort gout de pharmacie persistant;2
+NL040;P003;bonbon  chamallow desagreable a la longue;2
+NL040;P004;floral  doux  persistant;2
+NL040;P005;fruite  doux  agreable;2
+NL041;P002;ecouteurs pas cher de l eau de cologne;2
+NL041;P003;au debut j ai senti une odeur d abricot et en arriere plan odeur de fruits rouges;2
+NL041;P004;cherche une bonne odeur de fraicheur moi ca sent la violette;2
+NL041;P005;alors j ai ressenti une odeur de camomille et aussi d   agrumes;2
+NL042;P002;poivre epice eucalyptus menthe voyage;2
+NL042;P003;bruler cacao macadam agressif pas bon chimique caramel trop fort envoutant;2
+NL042;P004;floral epicer caramel agressif boise musk;2
+NL042;P005;frais floral muguet foret vanille sucre;2
+NL043;P002;eau florale tres agreable;2
+NL043;P003;tres fort et papa tres agreable;2
+NL043;P004;tuto floral un peu boise plutot agreable;2
+NL043;P005;note florale pas tres prononce mais plutot agreable;2
+NL044;P002;fort  fleur d oranger;2
+NL044;P003;bonbon rond;2
+NL044;P004;douceur creme bain;2
+NL044;P005;agreable agrume pepse;2
+NL045;P002;trop fort senteur produit wc trop de presence ecoeurant;2
+NL045;P003;bonbon bubble gum legere senteur acidule sucre;2
+NL045;P004;corse charge boise miel pateux ecoeurant ;2
+NL045;P005;menthe glacial chewing gum menthe tres doux et frais;2
+NL046;P002;frais fleur agreable;2
+NL046;P003;vanille fort fort;2
+NL046;P004;lavande fort persistant;2
+NL046;P005;agrumes d o frais;2
+NL047;P002;alors heure de fleurs ou de raisin oranger;2
+NL047;P003;une odeur industrielle rance une usine avec de la fumee fabrication de papier ca marche bien lol doc du plastique petrolier;2
+NL047;P004;une odeur huileuse bercuit beurre cuit moins fort;2
+NL047;P005;exotique un fruit secret secret sucre ananas;2
+NL048;P002;parfum qui sent pas grand-chose il faut vraiment que j explique fort pour sentir sensation desagreable c est un parfum  qui m a incommode un parfum qui malcommode je sais c est un parfum mauvaise vraiment tu me rends de mauvaise humeur  il me rend vraiment de mauvaise humeur chaudemanche parfum quelconque;2
+NL048;P003;odeur de parfum tres agreable me rappelle gout de certaines sucettes  parfum agreable a sentir a retrouver me rend assez joyeux parfum assez enfantin parfum sucre  ;2
+NL048;P004;ce parfum a une odeur qui n insupporte me donne une relative nausee j ai l impression que je vais conserver cette odeur longtemps j ai envie de me laver le nez je ne pourrais  pas rester dans une piece parfumee avec j aurais la sensation de manquer d air me rend peu aimable ;2
+NL048;P005;le parfum a l odeur bien discrete qu  il faut que je respire fort vraiment pour la sentir agreable qui ne m entete pas qui se fait discret qui ne nuira pas aux aliments que je pourrais consommer subtil parfum qui se laisse oublier et ne gene pas la respiration ;2
+NL049;P002;parfum d ambiance frais et delicat leger j aime beaucoup;2
+NL049;P003;j aime beaucoup ce parfum d ambiance il a une senteur qui apaise;2
+NL049;P004;parfum d ambiance trop fort pour moi;2
+NL049;P005;ce parfum d ambiance me fait trop penser a une eau de toilette type eau de cologne;2
+NL050;P002;frais  pomme acidulee nature;2
+NL050;P003;fraise fruits rouges on dirait un bonbon frais fruite ;2
+NL050;P004;leger discret frais acidule fruite legerement epice;2
+NL050;P005;frais pomme cannelle sucre acidule;2
+NL051;P002;fruite orange acidite douceur;2
+NL051;P003;sucre acide floral piquant;2
+NL051;P004;fleur rose tube de colle enfance alcoolise ;2
+NL051;P005;citronne fraicheur agreable;2
+NL052;P002;bonne odeur ;2
+NL052;P003;parfum fruite;2
+NL052;P004;produit frais;2
+NL052;P005;produits frais;2
+NL053;P002;une odeur de savon assez forte que je n aime pas du tout;2
+NL053;P003;odeur agressive ce qui fait que j ai du mal a identifier un parfum pour autant ca me fait penser a de l arlequin le bonbon;2
+NL053;P004;cannelle pomme fruite;2
+NL053;P005;parfum peut-etre pour une salle de bain assez fruite selon l usage du produit j aime plus ou moins;2
+NL054;P002;on a l impression que ce sont les 2 odeurs precedentes melangees et cela fonctionne bien ;2
+NL054;P003;c est pas terrible;2
+NL054;P004;desolee mais ca sent mauvais un parfum pour toilettes mais en pire ;2
+NL054;P005;c est agreable mais j aime les parfums plus soutenus;2
+NL055;P002;floral fraicheur bonbon;2
+NL055;P003;fruite melon pasteque;2
+NL055;P004;chimique puissant produit wc;2
+NL055;P005;boise citron vetiver epices;2
+NL056;P002;senteur de fleurs tres agreable a sentir;2
+NL056;P003;parfum trop fort parfum pour toilettes trop sucre;2
+NL056;P004;odeur tres agreable senteur coton tres doux;2
+NL056;P005;un parfum floral bonne odeur;2
+NL057;P002;parfum avec melange d grume et de chamallow un peu bizarre;2
+NL057;P003;parfum de miel et caramel qui rappelle les bonbons;2
+NL057;P004;parfum frais un peu cuivre;2
+NL057;P005;parfum de menthe un peu epicee comme sur un marche;2
+NL058;P002;acidite citron soleil;2
+NL058;P003;agressivite;2
+NL058;P004;fleurs prairie vacances;2
+NL058;P005;vacances citronnelle ;2
+NL059;P002;parfum tres agreable ca sent un peu sucre;2
+NL059;P003;j aime enormement  tres tres bon parfum tres intense  gout floral ;2
+NL059;P004;tres forte sensation un peu sucre  tres agreable  ;2
+NL059;P005;peu intense  un peu acide gout limon  agreable ;2
+NL060;P002;floral fraicheur maritime leger;2
+NL060;P003;puissant secret succes sucre familier dessert;2
+NL060;P004;prononce epice oriental;2
+NL060;P005;menthe frais chewing-gum bonbon discret;2

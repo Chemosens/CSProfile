@@ -1,0 +1,130 @@
+---
+title: "Statistical analysis of profile with chemosensR package"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    fig_height: 6
+    fig_width: 6
+vignette: >
+  %\VignetteIndexEntry{chemosensR package}    %\VignetteEngine{knitr::rmarkdown} 
+  \usepackage[utf8]{inputenc}
+
+header-includes: \usepackage{amsfonts}
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+chemosensR aims to analyze data from different protocols of sensory analysis -especially providing from TimeSens software ,but not only-. 
+This vignette is dedicated to sensory profiling. 
+
+
+```{r, eval=TRUE,echo=TRUE,message=FALSE}
+library(CSUtils)
+library(chemosensR)
+```
+
+
+# Reading a profile object
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE,message=FALSE}
+profileObject=profileReadData(file="../data/profile.csv",allData=NULL,outputsCsv=NULL,
+                              replaceNA="crossmean",sep=";",
+                              transformSessionIntoReplicate=TRUE,
+                              percentageOfSubjectsByReplicate=0, 
+                              percentageOfReplicatesBySubject=0,percentageOfProductBySubject=0)
+```
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+names(profileObject)
+```
+
+# Descriptive analysis
+
+## Table of statistics
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_stats=profileDescriptiveStatistics(profileObject,by="AttributeCode")
+res_stats=profileDescriptiveStatistics(profileObject,by="ProductCode")
+```
+
+## Boxplots
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_boxplot=profileBoxPlot(profileObject,variable=profileObject$Attributes[1])
+```
+
+## Barplots
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_barplot=profileBarPlot(profileObject,variable=profileObject$Attributes[1])
+```
+
+## Radarplot
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_radarplot=profileRadarPlot(profileObject)
+```
+
+# Product analysis
+
+## ANOVA results
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_anova=profileAnova(profileObject,model="DefaultModel", randomEffects=c("Subject"), lsMeansAlpha=0.10, lsMeansAdjustment="Tukey", anovaCalculationMode="Ols", show=c("Groups","StatMANOVA","F", "PValues","RMSE"),fileName=NULL,varianceTest="None", normalityTest="None",orderByF=TRUE)
+```
+```{r, echo=FALSE}
+htmltools::includeHTML("ANOVA of scores.html")
+```
+
+## Flash table
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_flashtable=profileFlashTable(profileObject,classificationMethod="Complete", explainedVariance=0.5, alphaContrast=0.1, similarity="Pearson", fileName="Flash table", show="",contrastOption="GMean",contrastProduct=NULL)
+```
+
+```{r, echo=FALSE}
+htmltools::includeHTML("Flash table.html")
+```
+
+## Use of MAM model
+```{r, eval=TRUE,echo=TRUE}
+res_mam=profileMAM(profileObject)
+```
+```{r, echo=FALSE}
+htmltools::includeHTML("MAM.html")
+```
+# Panel and panellist performances
+
+## MAMCAP Table
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_mamcaptable=profileCAPTable(profileObject,model="MAM",output = "MAMCAPTable")
+```
+
+```{r, echo=FALSE}
+htmltools::includeHTML("MAMCAPTable.html")
+```
+
+##CAP Table
+
+```{r, eval=TRUE,echo=TRUE,warning=FALSE}
+res_captable=profileCAPTable(profileObject,model="CAP")
+```
+```{r, echo=FALSE}
+htmltools::includeHTML("CAPTable.html")
+```
+# Product mapping
+
+## PCA
+
+```{r, eval=TRUE,echo=TRUE}
+res_pca=profilePCA(profileObject,itemsToPlot=c("ProductEllipses","Panellists"))
+
+```
+
+## CVA
+
+```{r, eval=TRUE,echo=TRUE}
+res_cva=profileCVA(profileObject,itemsToPlot=c("ProductEllipses","ProductSegments"))
+```

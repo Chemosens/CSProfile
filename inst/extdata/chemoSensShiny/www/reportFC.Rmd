@@ -1,0 +1,18 @@
+---
+output: html_document
+params:
+  titleRFC: titleFC
+  tablefc: tablefc
+  graphiquefc: graphiquefc
+title: "`r params$titleRFC`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+
+---
+
+```{r, echo = FALSE}
+knit_print.shiny.tag(params$tablefc)
+```
+
+```{r, echo = FALSE}
+plot(params$graphiquefc)
+```

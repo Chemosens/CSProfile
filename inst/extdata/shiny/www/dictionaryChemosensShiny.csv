@@ -1,0 +1,131 @@
+;en;fr
+fcdata;your data :;donnees :
+fclexic;your lexicon :;lexique :
+fcspecific;specificWords Tab :;table specifique :
+fcsubject;subject name :;nom des sujets :
+fcproduct;product name :;nom des produits :
+fcdescription;description :;description :
+fccitation;min nb of citations :;minimum cite :
+fcseparator;separator :;separateur :
+fcstart;start;start
+bsfcdata;Please choose your data table. All variables must be in the same array.;Veuillez choisir votre table de donnees. Toutes les variables doivent etre dans le meme tableau.
+bsfclexic;Please choose your data tables containing the lexicon.;Veuillez choisir vos tables de donnes contenant le lexique.
+bsfcspecific;If your Excel table contains several sheets, please choose the specific sheet in the lexicon. if there is not, there is nothing to enter here.;Si votre tableau excel contient plusieurs feuilles, veuillez choisir la feuille specifique au lexique. si il n'y en a pas, il n'y a rien a entrer ici.
+bsfcsubject;In your data table, put the name of the subject variable.;Dans votre table de donnees, mettez le nom de la variable sujet.
+bsfcproduct;In your data table, put the name of the product variable.;Dans votre table de donnees, mettez le nom de la variable produit.
+bsfcdescription;In your data table, put the name of the variable which contains the description of the product.;Dans votre table de donnees, mettez le nom de la variable qui contient la description du produit.
+bsfccitation;The minimum number of quotes for a word.;Le nombre minimum de citations d'un mot.
+bsfcseparator;the separator according to the format of your data.;le separateur suivant le format de vos donnes.
+fctabResume;summary;resume
+fctabContingence;contingency Table;table de contingence
+fctabKeptWord;kept Words;mots gardes
+fctabRemovedWord;removed Words;mots supprimes
+fctabGroup;Groups of Words;groupe de mots
+fctabDendogram;Dendogram;Dendogramme
+fctabLexicon;Lexicon;Lexique
+fctabAnalysis1;analysis;analyse
+fctabAnalysis2;axes;axes
+fctabUnit;unit;details
+fctabAnalysis;analysis;analyse
+fctabUnit1;unit;details
+fcaddLex1;add a word to the lexicon :;ajoutez un mot au lexique :
+fcaddLex2;word :;mot :
+fcaddLex3;lemma :;lemme :
+fcaddLex4;Add Word;ajouter mot
+fcaddLexHelp;info;info
+fcchoice;choice :;choix :
+fcchoiceHelp;original.cont <br/> Observed number of times each product was described by each descriptor <br/> percent.cont <br/> For each product, percentage of evaluations where each descriptor was cited for this product <br/> null.cont <br/> Expected number of times each product was described by each descriptor under the null hypothesis P-values of the tests per cell <br/> derived.cont <br/> The derived contingency table corresponding to nbaxes.sig axes <br/> percent.derived.cont;info
+fcAn;analysis;analyse
+fcalpha;alpha :;alpha :
+bsfcalpha;info;info
+fcnboot;nBoot :;nBoot :
+bsfcnboot;info;info
+fcchAxes;Axes :;Axes :
+bsfcchAxes;info;info
+tdsData;your data :;donnees :
+bstdsData;info;info
+tdsSubject;subject :;sujet :
+bstdsSubject;info;info
+tdsProduct;product :;produit :
+bstdsProduct;info;info
+tdsDescriptor;descriptor :;descripteur :
+bstdsDescriptor;info;info
+tdsTime;time :;temps :
+bstdsTime;info;info
+tdsScore;score :;score :
+bstdsScore;info;info
+tdsReplicate;rep :;rep :
+bstdsReplicate;info;info
+tdsCols;supCols :;supCols :
+bstdsCols;info;info
+tdsSeparator;sep :;sep :
+bstdsSeparator;info;info
+tdsFirst;startWithFirstCitation;DebutPremiereCitation
+bstdsFirst;info;info
+tdsDiscretization;discretization :;discretisation :
+bstdsDiscretization;info;info
+tdsPeriods;periods :;periodes :
+bstdsPeriods;info;info
+tdsStart;start;start
+tdsSummary;summary;resume
+tdsDF;data;donnees
+tdsDominances;dominances;dominances
+tdsDominancesSTD;std dominances;dominances standardises
+tdsDurations;durations;durees
+tdsCitations;citations;citations
+tdsBehaviours;behaviours;comportements
+TDSactionTri;filter;filtre
+tdsFirstTri;start;start
+deleteSubjectTDS;delete subject :;sujet a supprimer :
+TDSana1alpha;alpha :;alpha :
+bsTDSana1alpha;info;info
+analysis1TDS;Panelist Behavior;Comportement du panel
+ana2repAs;repAsIndividual;repAs individuel
+bsana2repAs;info;info
+ana2st;non standardized;non standardise
+bsana2st;info;info
+ana2RB;Run By;Run By
+bsana2RB;info;info
+analysis2TDS;Product temporality;temporalite des produits
+analysis3TDS;Dominance Durations;durees des dominances
+TDSana3alpha;alpha :;alpha :
+bsTDSana3alpha;info;info
+tdsUnit;unit;unit
+tdsPanelistTable;Panelist Table;table des sujets
+tdsAnovaBehaviour;ANOVA of behaviours;ANOVA du comportement
+tdsbandplotPanelist;Bandplot by panelist;bandplot par sujet
+ana3RB;Run By;Run By
+bsana3RB;info;info
+anaDiffDomCurvSt;non standardized;non standardise
+bsanaDiffDomCurvSt;info;info
+;;
+TDSpcaTrajectories;PCA of trajectories;ACP des trajectoires
+TDScurveDominances;Dominances Curves;Courbes des dominances
+TDSmenuBrowse;Browse …;Parcourir …
+TDSmenuFileSelected;No file selected;Aucun fichier
+ListeDeroulanteTDS;List;Liste
+downloadMenuTDS;Download;Telechargement
+customAnalysisTDS;Custom Analysis;Analyse a la carte
+individualSequencesTDS;Individual Sequences;Sequences Individuelles
+panelBandplotTDS;Panel Bandplot;Bandplot des sujets
+anovaDurationsTDS;ANOVA of Durations;ANOVA des durees
+pcaDurationsTDS;PCA of Durations;ACP des durees
+cvaDurationsTDS;CVA of Durations;CVA des durees
+titleRapportTDS;title :;titre :
+bsChoiceTDS;choose your method;choisissez votre methode
+bssubjectTDS;choose the column name representing the subject;choisissez le nom de colonne representant les sujets
+bsproductTDS;choose the column name representing the product;choisissez le nom de colonne representant les produits
+bsdescriptorTDS;choose the column name representing the descriptors;choisissez le nom de colonne representant les descripteurs
+bstimeTDS;choose the column name representing the time;choisissez le nom de colonne representant le temps 
+bsscoreTDS;choose the column name representing the score;choisissez le nom de colonne representant le score
+bsreplicateTDS;choose the column name representing the replicate;choisissez le nom de la colonne représentant la replique
+bsa2sequenceStartTDS;info;info
+bsa2sequenceDurationTDS;info;info
+bsa2nbDescriptorsTDS;info;info
+bsa2nbClicksTDS;info;info
+bsa2descriptorDurationTDS;info;info
+a2descriptorDurationTDS;nb descriptor Duration :;nb descripteur duree :
+a2nbClicksTDS;nb Clicks :;nb Clics :
+a2nbDescriptorsTDS;nb Descriptors :;nb Descripteurs :
+a2sequenceDurationTDS;sequence Duration :;Duree Sequence :
+a2sequenceStartTDS;sequence Start :;start Sequence :

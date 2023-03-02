@@ -1,0 +1,61 @@
+---
+output:
+  html_document:
+    keep_md: yes
+  pdf_document: default
+params:
+  titleRTDS: title
+  printa2: printa2
+  printa3: printa3
+  plotb1: plotb1
+  plotb23: plotb23
+  plotb89: plotb89
+  plotd9: plotd9
+  printd3: printd3
+  plotd56: plotd56
+  plotd7: plotd7
+title: "`r params$titleRTDS`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+# Panelist behavior
+
+```{r, echo = FALSE}
+knit_print.shiny.tag(params$printa2)
+```
+
+```{r, echo = FALSE}
+knit_print.shiny.tag(params$printa3)
+```
+
+# Product Temporality
+
+```{r, echo = FALSE}
+plot(params$plotb1)
+```
+
+```{r, echo = FALSE}
+plot(params$plotb23)
+```
+
+```{r, echo = FALSE}
+plot(params$plotb89)
+```
+
+```{r, fig.height = 15, echo = FALSE}
+plot(params$plotd9)
+```
+
+# Dominance Durations
+
+```{r, echo = FALSE}
+knit_print.shiny.tag(params$printd3)
+```
+
+```{r, fig.height = 15, echo = FALSE}
+plot(params$plotd56)
+```
+
+```{r, fig.height = 15, echo = FALSE}
+plot(params$plotd7)
+```

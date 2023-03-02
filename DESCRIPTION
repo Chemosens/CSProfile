@@ -1,0 +1,58 @@
+Package: CSProfile
+Type: Package
+Title: Tools for sensometrics and chemometrics
+Version: 0.1
+Date: 2020-09-26
+Author: Caroline Peltier, Michel Visalli
+Maintainer: Caroline Peltier <caroline.peltier@inrae.fr>
+Description: Tools for sensory profiling.
+License: GPL-3
+Depends: R (>= 4.0.1)
+Packaged: 2020-12-10 16:36:37 UTC; Caroline
+RoxygenNote: 7.1.2
+Imports: ggplot2,
+	data.table,
+	splus2R,
+	reshape2,
+	stringr,
+	plyr,
+	doBy,
+	stats,
+	ellipse,
+	DataCombine,
+	openxlsx,
+	ggformula,
+	greenclust,
+	FactoMineR,
+	MuMIn,
+	Rmisc,
+	car,
+	factoextra,
+	ggrepel,
+	kableExtra,
+	lme4,
+	lmerTest,
+	lsmeans,
+	abind,
+	candisc,
+	doParallel,
+	foreach,
+	iterators,
+	RCurl,
+	htmltools,
+	multcomp,
+	sqldf,
+	pheatmap,
+	gridExtra,
+	knitr,
+	ggdendro,
+	ggforce,
+	fmsb,
+	doBy,
+	sjmisc,
+	lme4,
+	lsmeans,
+	multcomp,
+	CSUtils
+Suggests:
+VignetteBuilder: knitr
