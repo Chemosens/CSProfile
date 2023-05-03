@@ -14,7 +14,9 @@ profileCAPTable(
   correlationTest = "Kendall",
   indivRepLimCap = 0.01,
   indivAgLimCap = 0.2,
-  repInIndModel = FALSE
+  repInIndModel = FALSE,
+  negativeCorrection = TRUE,
+  correctOnlyIfSignificant = FALSE
 )
 }
 \arguments{
@@ -37,6 +39,10 @@ profileCAPTable(
 \item{indivAgLimCap}{if model =='CAP', limit for significance in disagreement tests. 0.2 by default}
 
 \item{repInIndModel}{if model =='CAP', repInIndModel indicates whether the replicate should be included in the individual model (using the model 'TwoWayAdditiveBySubject'). Default to FALSE (using the model 'OneWayBySubject')}
+
+\item{negativeCorrection}{if TRUE, if model =="MAMCAP", negative scaling are NOT considered}
+
+\item{correctOnlyIfSignificant}{if TRUE, only the attributes significant are corrected}
 }
 \description{
 This function build an html file (CAPTable.html) containing a panel and panelist performance table (CAP or MAM-CAP table) in current working directory.

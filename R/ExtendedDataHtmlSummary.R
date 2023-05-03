@@ -1,7 +1,8 @@
+#'@importFrom stats aggregate sd
 ExtendedDataHtmlSummary=function(extendedData,by="AttributeCode",title="",fileName="ExtendedDataSummary")
 {
 	res.ExtendedDataSummary=ExtendedDataSummary(extendedData)
-	
+
 	html = paste("<html><body><h2>",title,"</h2>",sep="")
 	matRes=NULL
 	if (by=="ProductCode")
@@ -22,7 +23,7 @@ ExtendedDataHtmlSummary=function(extendedData,by="AttributeCode",title="",fileNa
 	}
 	if (by=="AttributeCode")
 	{
-	 
+
 		for (attribute in colnames(extendedData)[-c(1:4)])
 		{
 			mat=NULL
@@ -39,6 +40,6 @@ ExtendedDataHtmlSummary=function(extendedData,by="AttributeCode",title="",fileNa
 	matRes[,-1]=as.numeric(matRes[,-1])
 	# Ecriture dans fichier html
 	html = paste(html,"</body></html>",sep="",collapse="")
-	cat(html,file=paste(fileName,".html",sep=""), append=TRUE)	
+	cat(html,file=paste(fileName,".html",sep=""), append=TRUE)
 	return(matRes)
 }

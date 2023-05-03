@@ -1,23 +1,23 @@
 #'@importFrom graphics lines par text abline mtext barplot
-#'@importFrom stats as.formula
+#'@importFrom stats as.formula qnorm
 #'@importFrom grDevices colorRampPalette rainbow
 PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, itemsToPlot=c("GMean","ErrorBars"),errorBars="ConfInt",statsToPlot=c("Means","Sd","N"), groupId="both", title="Mean scores by product",subtitle="",ylab="Score",resAnova=NULL,printLegend=TRUE,LSAlpha=0.05)
-{	
+{
 	listRes=list()
 	# gestion des éventuels paramètres manquants
-	if(!exists("minScore") || is.null(minScore)) 
-	{ 
+	if(!exists("minScore") || is.null(minScore))
+	{
 		minScore=floor(min(extendedData[,variable],na.rm=TRUE))
 	}
-	if(!exists("maxScore") || is.null(maxScore) || is.na(maxScore)) 
-	{ 
+	if(!exists("maxScore") || is.null(maxScore) || is.na(maxScore))
+	{
 		maxScore=ceiling(max(extendedData[,variable],na.rm=TRUE))
 	}
-	if(!exists("resAnova") || is.null(resAnova)) 
-	{ 
+	if(!exists("resAnova") || is.null(resAnova))
+	{
 		groupId="None"
-	}			
-		
+	}
+
 	# Calculs des moyennes des produits
 
 	calculProductMeans=aggregate(extendedData[,variable],by=list(extendedData$ProductCode),FUN=mean,na.rm=T)
@@ -49,7 +49,7 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		productGroupsNum=resAnova[[1]]$MoyProd$.group;names(productGroupsNum)=resAnova[[1]]$MoyProd$ProductCode
 		#productSE=resAnova[[1]]$MoyProd$SE
 		productGroups=sapply(productGroupsNum,letterForGroup);names(productGroups)=resAnova[[1]]$MoyProd$ProductCode
-	
+
 		# Couleur des groupes
 		tmpGrp=NULL
 		for(i in 1:length(productGroups))
@@ -59,7 +59,7 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		}
 		groups=unique(tmpGrp)
 		nbGroups=length(groups)
-		
+
 		groupColors = rainbow(nbGroups)
 		names(groupColors)=groups
 		listRes[["ProductGroupsNum"]]=productGroupsNum
@@ -72,7 +72,7 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 	{
 		productLabels=paste(productLabels," (",productGroups,")",sep="")
 	}
-	
+
 	if ("n" %in% statsToPlot || "N" %in% statsToPlot ||errorBars=="StdErr")
 	{
 		#calculN=aggregate((resAnova[[1]])$Data[,"Y"],by=list((resAnova[[1]])$Data[,"ProductCode"]),FUN="length")
@@ -85,11 +85,11 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		}
 	}
 
-	
+
 	# attention, ici, les ecarts types sont les mêmes pour tous les produits
 	#calculStd=aggregate((resAnova[[1]])$Data[,"Y"],by=list((resAnova[[1]])$Data[,"ProductCode"]),FUN="sd")
 	#productStd=calculStd[,"x"];names(productStd)=calculStd[,"Group.1"]
-	
+
 	# Calculs des écarts types  : option STD ou stdErr
 	if(errorBars=="StdDev"||errorBars=="StdError"||"means" %in% statsToPlot||"Means" %in% statsToPlot)
 	{
@@ -101,10 +101,10 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 	# Calculs des intervalles de confiance "classiques
 	if(errorBars=="StdError")
 	{
-		
+
 		dataForCalculation=merge(calculN,calculProductStd)
 		# if(is.null(LSAlpha))
-		# { 
+		# {
 			# if(!is.null(resAnova[[1]]$LSMeansAlpha))
 			# {
 				# LSAlpha=resAnova[[1]]$LSMeansAlpha
@@ -124,18 +124,18 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 	}
 	if(printLegend)
 	{
-		par(oma=c(4,0,2,0))	
+		par(oma=c(4,0,2,0))
 	} else{par(oma=c(0,0,2,0))	}
 	# determination des bornes du graph à construire
 	if ("ErrorBars" %in% itemsToPlot & errorBars=="StdDev")	{	maxScore=max(maxScore,max(productMeans,na.rm=TRUE)+max(productStd,na.rm=TRUE));minScore=min(minScore,min(productMeans,na.rm=TRUE)-max(productStd,na.rm=TRUE))	}
-	if ("ErrorBars" %in% itemsToPlot & errorBars=="StdError")	{	maxScore=max(max(productMeans,na.rm=TRUE)+max(productStdError,na.rm=TRUE),maxScore);minScore=min(minScore,min(productMeans,na.rm=TRUE)-max(productStdError,na.rm=TRUE))	}	
+	if ("ErrorBars" %in% itemsToPlot & errorBars=="StdError")	{	maxScore=max(max(productMeans,na.rm=TRUE)+max(productStdError,na.rm=TRUE),maxScore);minScore=min(minScore,min(productMeans,na.rm=TRUE)-max(productStdError,na.rm=TRUE))	}
 	if ("ErrorBars" %in% itemsToPlot & errorBars=="ConfInt" & !is.null(resAnova))	{	maxScore=max(max(resAnova[[1]]$MoyProd[,"upper.CL"]+(maxScore-minScore)/10),maxScore,na.rm=T);minScore=min(min(resAnova[[1]]$MoyProd[,"lower.CL"]),minScore,na.rm=T)	}
-	
+
 	#coord=as.vector(barplot(productMeans,ylim=c(0,maxScore),horiz=F,names.arg=productLabels,ylab=ylab,width=1,space=0.5))
 	if(nbProd>4){namesArg=c("")}else{namesArg=productLabels}
 		coord=as.vector(barplot(productMeans,ylim=c(0,maxScore),horiz=F,names.arg=namesArg,ylab=ylab,width=1,space=0.5))
 	names(coord)=products
-		
+
 	for (product in products)
 	{
 		m=productMeans[product]
@@ -143,8 +143,8 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		{
 			lcl=resAnova[[1]]$MoyProd[resAnova[[1]]$MoyProd[,"ProductCode"]==product,"lower.CL"]
 			ucl=resAnova[[1]]$MoyProd[resAnova[[1]]$MoyProd[,"ProductCode"]==product,"upper.CL"]
-		}	
-		
+		}
+
 		y1=m
 		y2=m
 
@@ -172,16 +172,16 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 					vecColor=colorRampPalette(c(leftColor,middleColor,rightColor))(100)
 					}
 				} else
-				{	
-					vecColor=groupColors[indleft:indright]		
+				{
+					vecColor=groupColors[indleft:indright]
 				}
 			}
 			else{vecColor=groupColors[1]}
 
-				
+
 		}
-		PlotMultiColorRectangle(coord[[product]]-coord[[1]]/2,0,coord[[product]]+coord[[1]]/2,productMeans[[product]],vecColor)		
-				
+		PlotMultiColorRectangle(coord[[product]]-coord[[1]]/2,0,coord[[product]]+coord[[1]]/2,productMeans[[product]],vecColor)
+
 		if ("ErrorBars" %in% itemsToPlot)
 		{
 			if (errorBars=="StdDev")
@@ -209,16 +209,16 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 			lines(c(coord[[product]]-0.1,coord[[product]]+0.1),rep(y1,2))
 			lines(c(coord[[product]]-0.1,coord[[product]]+0.1),rep(y2,2))
 		}
-		
+
 		# Affichage des moyennes par produit
 		if ("means" %in% statsToPlot||"Means" %in% statsToPlot)
 		{
 			txt=paste(round(productMeans[[product]],2),"+-",round(productStd[[product]],2), sep="")
 			text(coord[[product]],y1,txt,pos=3,cex=0.8)
 		}
-		
+
 	}
-	
+
 	# Tracé des noms des produits en dessous des boxes
 	if(nbProd>4)
 	{
@@ -237,10 +237,10 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		#text(tail(coord,1)+coord[1]/2,GMean,round(GMean,2),col="blue",pos=3)
 		text(coord[1]/2,GMean,round(GMean,2),col="blue",pos=3)
 	}
-			
+
 	#par(oma=c(2,2,2,1))
 	mtext(title,3,line=2,cex=1.8,font=2)
-	
+
 	if(printLegend)
 	{
 		if ("ErrorBars" %in% itemsToPlot)
@@ -273,4 +273,4 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 	mtext(legend,1,line=5,outer=T,cex=1,font=3)
 	}
 	return(listRes)
-}	
+}

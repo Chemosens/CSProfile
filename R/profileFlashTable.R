@@ -15,8 +15,8 @@
 #'@examples
 #'data(cheeses)
 #'profileFlashTable(cheeses)
-profileFlashTable = function(profileObject,classificationMethod="Complete", explainedVariance=0.5, alphaContrast=0.1, similarity="Pearson", fileName="Flash table", show="",contrastOption="GMean",contrastProduct=NULL)
-{ 
+profileFlashTable = function(profileObject,classificationMethod="Complete", explainedVariance=0.5, alphaContrast=0.1, similarity="Pearson", fileName="FlashTable", show="",contrastOption="GMean",contrastProduct=NULL)
+{
   if(!profileObject$additionalCalculations)
   {
     if(length(profileObject$Replicates)==1){model="TwoWayAdditive"}else{model="TwoWayMultiplicative"}
@@ -34,19 +34,16 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 	{
 		showNonSignificantNumbers=TRUE
 	}
-	
+
 	similarity=tolower(similarity)
-	classificationMethod=tolower(classificationMethod)	
+	classificationMethod=tolower(classificationMethod)
 	showOnlySignificantVariables=profileObject$OnlySignificantAttributesInMultivariateAnalysis
-	
+	language="en"
 
-		language="en"
-
-	
 	# to do ? distinction entre les groupes de variables
 	extendedData=profileObject$CompleteExtendedDataWithoutNA[,-c(1:4)]
 	canonicalData=profileObject$CompleteCanonicalDataWithoutNA
-		
+
 	# selection (ou non) des attributs significatifs uniquement dans listAttributes
 	listAttributes=NULL
 	listAnovas=list()
@@ -54,17 +51,17 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 	Pprod=rep(NA,length(profileObject$Attributes))
 	atts=as.character(profileObject$Attributes)
 	names(Fprod)=profileObject$Attributes;	names(Pprod)=profileObject$Attributes;
-	 listAnova=list()
-	 if(length(profileObject$Replicates)>1)
+	listAnova=list()
+	if(length(profileObject$Replicates)>1)
 	 {
 			 for (att in atts)
 			 {
 				listAnova[[att]]=profileObject$Anova[[att]]
 				Fprod[att]=listAnova[[att]][[1]]$FProd
 				Pprod[att]=listAnova[[att]][[1]]$PProd
-				
+
 				if (showOnlySignificantVariables==TRUE)
-				{		
+				{
 					if((profileObject$Anova[[att]][[1]]$PProd)<(profileObject$AlphaForSelectionOfSignificantAttributes))
 					{
 						listAttributes=c(listAttributes,att)
@@ -72,7 +69,7 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 				} else
 				{
 					listAttributes=profileObject$Attributes
-				}		
+				}
 			}
 		}
 		else # si on a une seule r?p?tition
@@ -83,7 +80,7 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 				Fprod[att]=listAnova[[att]][[1]]$FProd
 				Pprod[att]=listAnova[[att]][[1]]$PProd
 				if (showOnlySignificantVariables==TRUE)
-				{		
+				{
 					if((profileObject$Anova[[att]][[1]]$PProd)<(profileObject$AlphaForSelectionOfSignificantAttributes))
 					{
 						listAttributes=c(listAttributes,att)
@@ -91,31 +88,35 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 				} else
 				{
 					listAttributes=profileObject$Attributes
-				}		
+				}
 			}
-		
+
 		}
 		# cas ou aucun attribut n'est significatif
 		if (length(listAttributes)==0)
 		{
 			# if(type=="html")
 			# {
-				 fileName=paste(output,".html", sep="")	
+				 fileName=paste(fileName,".html", sep="")
 				 html=("<html><body>")
 				 html=paste(html, "<h2>","Flash Table", "</h2>")
 				 html=paste(html, "<p>","No Significant Attribute","</p>")
-				 html=paste(html,"</body></html>",sep="",collapse="")		
+				 html=paste(html,"</body></html>",sep="",collapse="")
 				 cat(html,file=fileName, append=TRUE)
 				 return()
 			#}
-		 }	
-	
+		 }
+
+
 	## 1) determiner les groupes par la procedure VARCLUS: i est le nombre de groupes obtenus groups contient le lien entre les groupes et les attributs (tri al?atoire des groupes)
-	distances=(dist(cor(scale(extendedData),method=similarity,use="pairwise.complete.obs")))
+	correlation=cor(scale(extendedData),method=similarity,use="pairwise.complete.obs")
+	correlation[is.na(correlation)]=1
+	distances=dist(correlation)
+
 	hClust=hclust(distances,classificationMethod)
 	i=2 #i nombre de groupes
 	totalVariance=sum(diag(var(extendedData,na.rm=TRUE)))
-	
+
 	tabVar=NULL
 	currentExplainedVariance=0
 	while (currentExplainedVariance<=explainedVariance &&i<length(listAttributes))
@@ -124,8 +125,7 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 		currentExplainedVariance=0
 		groups=cutree(hClust, k=i)
 		for (u in 1:i)
-		{ 
-		
+		{
 			indices=which(groups==u)
 			datap=extendedData[,indices]
 			mcov=var(datap,na.rm=TRUE)
@@ -138,13 +138,13 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 	}
 	# vect contient l'ordre des groupes avec la meilleure variance expliquee : le premier groupe sera celui indiqu? par groups[vect]
 	vect=order(tabVar, decreasing=TRUE)
-	
+
 	# Choix du premier attribut (dans le vecteur att1) de chaque groupe : celui avec le plus grand F produit et determination des variables significatives
 	i=i-1
 	att1=NULL
-	
+
 	for (u in 1:i)
-	{ 
+	{
 		indices=which(groups==u)
 		datap=extendedData[,indices]
 		if (length(indices)!=1)
@@ -155,11 +155,11 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 			names(FprodGp)=listAtt
 			PprodGp=rep(NA,length(indices))
 			names(PprodGp)=listAtt
-			
+
 			for(attribute in listAtt)
 			{
 				FprodGp[attribute]=Fprod[attribute]
-				PprodGp[attribute]=	Pprod[attribute]			
+				PprodGp[attribute]=	Pprod[attribute]
 			}
 			att1[u]=listAtt[which(FprodGp==max(FprodGp[!is.na(FprodGp)]))[1]]
 		} else
@@ -170,25 +170,25 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 
 
 		# firstAtt est le tout premier attribut de la table Flash: celui du groupe avec le meilleur F, #et le groupe qui explique le mieux la variance
-	firstAtt=att1[vect[1]] 
+	firstAtt=att1[vect[1]]
 	groupeContenantDesAttributsSignificatifs=1
-	
+
 	# si jamais ce premier attribut n'est pas significatif... prendre le premier significatif
 	while(!firstAtt%in%listAttributes)
 	{
 		groupeContenantDesAttributsSignificatifs=groupeContenantDesAttributsSignificatifs+1
-		firstAtt=att1[vect[groupeContenantDesAttributsSignificatifs]] 
+		firstAtt=att1[vect[groupeContenantDesAttributsSignificatifs]]
 	}
-	
 
-	# On d?termine l'ordre ? l'int?rieur de chaque groupe en comparant les corr?lations des premiers ?l?ments de chaque groupe avec le premier ?l?ment 
+
+	# On d?termine l'ordre ? l'int?rieur de chaque groupe en comparant les corr?lations des premiers ?l?ments de chaque groupe avec le premier ?l?ment
 
 	liste=NULL
-	for (k in 1:i) 
+	for (k in 1:i)
 	{
 		u=vect[k] # choix du groupe dans l'ordre des variances expliqu?es d?croissantes
 		indices=which(groups==u)
-		datap=extendedData[,indices] 
+		datap=extendedData[,indices]
 		if (length(indices)>2)  # si on a au moins deux descripteurs dans le groupe
 		{
 			# calculer les correlations des descripteurs avec le premier descripteur
@@ -213,38 +213,38 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 	liste=intersect(liste,listAttributes) # selection ?ventuelle des attributs significatifs uniqumeent
 
 	options(contrasts = c("contr.sum","contr.sum"))
-	
+
 	# Moyenne par attribut
 	pMeans=aggregate(as.formula("Score~AttributeCode+ProductCode"), canonicalData, mean, na.rm=TRUE)
 	gMeans=aggregate(as.formula("Score~AttributeCode"), canonicalData, mean, na.rm=TRUE)
-	
+
 	# Vecteur de contrastes
 	nbProducts=length(profileObject$Products)
 	contrastVector=rep(1/(nbProducts-1),nbProducts)
 	names(contrastVector)=sort(as.character(profileObject$Products))
-	
+
 	# Style pour sortie HTML
 	style=NULL
-	
+
 	# Construction de la table FLASH
 	flash=matrix(0,nrow=length(listAttributes), ncol=length(profileObject$Products)+3)
-	meanMatrix=matrix(0,nrow=length(listAttributes), ncol=length(profileObject$Products))	
-	pvalueMatrix=matrix(0,nrow=length(listAttributes), ncol=length(profileObject$Products))	
+	meanMatrix=matrix(0,nrow=length(listAttributes), ncol=length(profileObject$Products))
+	pvalueMatrix=matrix(0,nrow=length(listAttributes), ncol=length(profileObject$Products))
 	colnames(flash)=c("F-Prod","P(F)","GMEAN",sort(as.character(profileObject$Products)))
 	rownames(flash)=listAttributes
 	colnames(meanMatrix)=sort(as.character(profileObject$Products))
 	rownames(meanMatrix)=listAttributes
 	colnames(pvalueMatrix)=sort(as.character(profileObject$Products))
 	rownames(pvalueMatrix)=listAttributes
-	
+
 	# couleur de chaque premier attribut de chaque groupe
-	 att1resulted=liste[liste%in%att1] # liste des premiers attributs significatifs dans l'ordre 
+	 att1resulted=liste[liste%in%att1] # liste des premiers attributs significatifs dans l'ordre
 	 colorByFirstAttribute=rep(c("white","#D8D8D8"),length(att1resulted))
 	 colorByFirstAttribute=colorByFirstAttribute[1:length(att1resulted)]
 	 names(colorByFirstAttribute)=att1resulted #nom dans l'ordre des groupes qui apparaissent
-	 
+
 	for (attribute in listAttributes)
-	{	
+	{
 		groupAttribut=groups[attribute]
 		firstAttributeOfGroup=att1[groupAttribut]
 		groupColor=colorByFirstAttribute[firstAttributeOfGroup]
@@ -256,80 +256,82 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 		flash[attribute,"P(F)"]=FriendlyPValue(Pprod[attribute])
 		gMean=sprintf("%.2f",gMeans[gMeans$AttributeCode==attribute,"Score"])
 		flash[attribute,"GMEAN"]=gMean
-		
+
 		for (product in sort(as.character(profileObject$Products)))
 		{
 			currentMean=sprintf("%.2f",pMeans[pMeans$AttributeCode==attribute & pMeans$ProductCode==product,"Score"])
-			meanMatrix[attribute,product]=currentMean	
+			meanMatrix[attribute,product]=currentMean
 			resLsmeans=profileObject$Anova[[attribute]][[1]][["resLsmeans"]]
-			if(contrastOption=="GMean")
+			if(!is.null(resLsmeans))
 			{
-				tmpContrastVect=contrastVector
-				tmpContrastVect[product]=-1
-				resContrast=summary(contrast(resLsmeans,method=list(tmpContrastVect)),adjust="holm")
-				Pr=resContrast$p.value
+			  if(contrastOption=="GMean")
+			  {
+			    tmpContrastVect=contrastVector
+			    tmpContrastVect[product]=-1
+			    resContrast=summary(contrast(resLsmeans,method=list(tmpContrastVect)),adjust="holm")
+			    Pr=resContrast$p.value
+			  }
+			  if(contrastOption=="Product")
+			  {
+			    if(!contrastProduct%in%as.character(profileObject$Products)){stop("Please enter the name of a product.")}
+			    else
+			    {
+			      if(contrastProduct!=product)
+			      {
+
+			        tmpContrastVect=rep(0,length(profileObject$Products))
+			        names(tmpContrastVect)=(profileObject$Products)
+			        tmpContrastVect[contrastProduct]=-1
+			        tmpContrastVect[product]=1
+			        resContrast=summary(contrast(resLsmeans,list(tmpContrastVect)),adjust="holm")
+			        Pr=resContrast$p.value
+			      }
+			      else
+			      {
+			        Pr=1
+			      }
+
+			    }
+			  }
+			  if (Pr<=alphaContrast)
+			  {
+			    if(as.numeric(currentMean)>=as.numeric(gMean))
+			    {
+			      style=AddHtmlStyle(style,attribute,product,backgroundColor="#00FF00")
+			      currentMean=paste(currentMean,"+",sep="")
+			    } else
+			    {
+			      style=AddHtmlStyle(style,attribute,product,backgroundColor="yellow")
+			      currentMean=paste(currentMean,"-",sep="")
+			    }
+			  } else
+			  {
+			    if(!showNonSignificantNumbers)
+			    {
+			      currentMean=""
+			      style=AddHtmlStyle(style,attribute,product,backgroundColor=groupColor)
+
+			    }else
+			    {
+			      currentMean=currentMean
+			      style=AddHtmlStyle(style,attribute,product,backgroundColor=groupColor)
+			    }
+			  }
+			  flash[attribute,product]=currentMean
 			}
-			if(contrastOption=="Product")
-			{
-				if(!contrastProduct%in%as.character(profileObject$Products)){stop("Please enter the name of a product.")}
-				else
-				{
-					if(contrastProduct!=product)
-					{
-			
-						tmpContrastVect=rep(0,length(profileObject$Products))
-						names(tmpContrastVect)=(profileObject$Products)
-						tmpContrastVect[contrastProduct]=-1
-						tmpContrastVect[product]=1
-						resContrast=summary(contrast(resLsmeans,list(tmpContrastVect)),adjust="holm")
-						Pr=resContrast$p.value
-					}
-					else
-					{
-						Pr=1
-					}
-				
-				}
-			}
-			
-		
-			if (Pr<=alphaContrast)
-			{
-				if(as.numeric(currentMean)>=as.numeric(gMean))
-				{
-					style=AddHtmlStyle(style,attribute,product,backgroundColor="#00FF00")
-					currentMean=paste(currentMean,"+",sep="")
-				} else
-				{
-					style=AddHtmlStyle(style,attribute,product,backgroundColor="yellow")
-					currentMean=paste(currentMean,"-",sep="")
-				}
-			} else
-			{
-				if(!showNonSignificantNumbers)
-				{
-					currentMean=""
-					style=AddHtmlStyle(style,attribute,product,backgroundColor=groupColor)
-		
-				}else
-				{
-					currentMean=currentMean
-					style=AddHtmlStyle(style,attribute,product,backgroundColor=groupColor)
-				}
-			}	
-			flash[attribute,product]=currentMean		
+
 		}
-	}	
+	}
 
 	sortedProductIndex=sort(as.numeric(as.character(meanMatrix[firstAtt,])),decreasing=FALSE,index.return=TRUE)$ix
 	flash[,4:dim(flash)[2]]=flash[,sortedProductIndex+3]
 	colnames(flash)=c("F-Prod","P(F)","GMEAN",sort(as.character(profileObject$Products))[sortedProductIndex])
 	sortedAttributeIndex=match(liste,as.character(listAttributes)) #inversion?
-	flash=flash[sortedAttributeIndex,]	
+	flash=flash[sortedAttributeIndex,]
 	colnames(flash)=c("F-Prod","P(F)","GMEAN",sort(as.character(profileObject$Products))[sortedProductIndex])
 	rownames(flash)=listAttributes[sortedAttributeIndex]
-	
-	# Output 
+
+	# Output
 	html=("<html><body>")
 	html=paste(html, "<h2>","Flash Table", "</h2>")
 	html=paste(html, "<p>","Similarity",": ", similarity, "</p>")
@@ -344,6 +346,6 @@ profileFlashTable = function(profileObject,classificationMethod="Complete", expl
 	html=paste(html,"</body></html>",sep="",collapse="")
 	print(paste0("The file was produced in ", getwd()))
 	cat(html,file=paste(fileName,".html",sep=""), append=FALSE)
-  	
+
 	return(flash)
 }

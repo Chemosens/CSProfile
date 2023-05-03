@@ -16,7 +16,6 @@ profilePCA(
   returnX = F,
   returnY = F,
   productColors = FALSE,
-  outputs = "",
   ellipsesCalculation = "Chi",
   bootstrap = FALSE,
   nSamples = 100,
@@ -26,7 +25,7 @@ profilePCA(
   alphaForSelectionOfSignificantAttributes = 0.05,
   sizeText = NULL,
   expandBiplot = 1,
-  colorAttributeForBiplot = NULL
+  colorAttributeForBiplot = "black"
 )
 }
 \arguments{
@@ -69,6 +68,8 @@ profilePCA(
 \item{sizeText}{number allowing to change the size of the text}
 
 \item{expandBiplot}{default to 1.}
+
+\item{colorAttributeForBiplot}{"black" by default}
 }
 \description{
 Returns PCA.

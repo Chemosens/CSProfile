@@ -10,7 +10,7 @@ profileBoxPlot(
   overallBoxplot = TRUE,
   plotMeans = TRUE,
   plotStats = TRUE,
-  groupId = "Both"
+  groupId = "both"
 )
 }
 \arguments{

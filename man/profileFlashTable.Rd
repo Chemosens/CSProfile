@@ -10,7 +10,7 @@ profileFlashTable(
   explainedVariance = 0.5,
   alphaContrast = 0.1,
   similarity = "Pearson",
-  fileName = "Flash table",
+  fileName = "FlashTable",
   show = "",
   contrastOption = "GMean",
   contrastProduct = NULL

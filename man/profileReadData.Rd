@@ -7,9 +7,7 @@
 profileReadData(
   file = NULL,
   allData = NULL,
-  outputsCsv = NULL,
   replaceNA = "crossmean",
-  language = "en",
   sep = ";",
   transformSessionIntoReplicate = TRUE,
   percentageOfSubjectsByReplicate = 0,
@@ -23,7 +21,14 @@ profileReadData(
   lsMeansAdjustment = "Sidak",
   lsMeansAlpha = 0.05,
   onlySignificantAttributesInMultivariateAnalysis = T,
-  alphaForSelectionOfSignificantAttributes = T
+  alphaForSelectionOfSignificantAttributes = T,
+  format = "long",
+  subject = "SubjectCode",
+  product = "ProductCode",
+  rep = "Replicate",
+  attributes = NULL,
+  attribute = "AttributeCode",
+  score = "Score"
 )
 }
 \arguments{
@@ -60,6 +65,20 @@ profileReadData(
 \item{onlySignificantAttributesInMultivariateAnalysis}{default to TRUE. Should only the significant attributes be kept in multivariate analyses ?}
 
 \item{alphaForSelectionOfSignificantAttributes}{default to T. Significance threshold for the attributes to be kept in the multivariate analyses.}
+
+\item{format}{"wide" or "long". If long, the file or allData should contain only five columns: product, subject, rep, attribute and score}
+
+\item{subject}{name of the column containing subjects. SubjectCode by default}
+
+\item{product}{name of the column containing products. ProductCode by default}
+
+\item{rep}{name of the column containing replicates.Replicate by default}
+
+\item{attributes}{if format=="wide", the attributes to be analyzed can be specified in this vector of characters. If NULL (default) all the columns that are not subject, product or rep are selected}
+
+\item{attribute}{if format=="long", name of the column containing the attributes. AttributeCode by default}
+
+\item{score}{if format=="long", name of the column containing the scores. Score by default}
 }
 \description{
 Read data from profile experiment

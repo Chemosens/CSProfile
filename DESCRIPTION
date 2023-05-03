@@ -9,7 +9,7 @@ Description: Tools for sensory profiling.
 License: GPL-3
 Depends: R (>= 4.0.1)
 Packaged: 2020-12-10 16:36:37 UTC; Caroline
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Imports: ggplot2,
 	data.table,
 	splus2R,

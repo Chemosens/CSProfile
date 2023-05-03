@@ -1,9 +1,10 @@
+#' @importFrom stats aggregate
 CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode","AttributeCode","Replicate","Score","Time","Session"),transformSessionIntoReplicate=TRUE,selectOtherVariables=NULL)
 {
 	#TODO : log des modifs
 	SubjectCode=ProductCode=AttributeCode=NULL
 	res=list()
-	
+
 	# V?rification des variables obligatoires
 	missingVariables=NULL
 	colNames = colnames(canonicalData)
@@ -25,14 +26,14 @@ CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode
 		}
 	}
 	colNames = colnames(canonicalData)
-	
+
 	res[["MissingVariables"]]=missingVariables
 	if(length(missingVariables)>0)
-	{		
+	{
 		stop(paste("MissingVariables: ",paste(missingVariables,collapse=", ")))
 	}
-	
-	
+
+
 	# Suppression des caract?res sp?ciaux, Transformation en facteurs
 	if ("SubjectCode" %in% colNames && "SubjectCode" %in% variables)
 	{
@@ -44,33 +45,33 @@ CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode
 	if ("ProductCode" %in% colNames && "ProductCode" %in% variables)
 	{
 		if(length(canonicalData$ProductCode[!is.na(canonicalData$ProductCode)])==0){stop("[TS] No products in the product column")}
-	
+
 		canonicalData$ProductCode=gsub("[!#$%&'()*+,-./:;<=>?@]", "_", canonicalData$ProductCode)
 		canonicalData$ProductCode = factor(canonicalData$ProductCode)
 		canonicalData=subset(canonicalData,ProductCode!="")
 	}
 	if ("AttributeCode" %in% colNames && "AttributeCode" %in% variables)
 	{
-		if(length(canonicalData$AttributeCode[!is.na(canonicalData$AttributeCode)])==0){TS_LogEntry("[TS] No attribute in the attribute column")}
+		if(length(canonicalData$AttributeCode[!is.na(canonicalData$AttributeCode)])==0){stop("[TS] No attribute in the attribute column")}
 		canonicalData$AttributeCode=gsub("[!#$%&'()*+,-./:;<=>?@]", "_", canonicalData$AttributeCode)
-		canonicalData$AttributeCode = factor(canonicalData$AttributeCode) 
+		canonicalData$AttributeCode = factor(canonicalData$AttributeCode)
 		canonicalData=subset(canonicalData,AttributeCode!="")
 	}
 	if ("Session" %in% colNames && "Session" %in% variables)
 	{
 		canonicalData$Session=gsub("[!#$%&'()*+,-./:;<=>?@]", "_", canonicalData$Session)
 		canonicalData[is.na(canonicalData[,"Session"]),"Session"]="NoSession"
-		canonicalData$Session = factor(canonicalData$Session)	
-	} 
+		canonicalData$Session = factor(canonicalData$Session)
+	}
 	if ("Replicate" %in% colNames && "Replicate" %in% variables)
 	{
 		canonicalData$Replicate=gsub("[!#$%&'()*+,-./:;<=>?@]", "_", canonicalData$Replicate)
-		canonicalData$Replicate = factor(canonicalData$Replicate) 
+		canonicalData$Replicate = factor(canonicalData$Replicate)
 	}
 	if ("Group" %in% colNames && "Group" %in% variables)
 	{
 		canonicalData$Group=gsub("[!#$%&'()*+,-./:;<=>?@]", "_", canonicalData$Group)
-		canonicalData$Group = as.character(canonicalData$Group) 
+		canonicalData$Group = as.character(canonicalData$Group)
 	}
 	if ("Score" %in% colNames && "Score" %in% variables)
 	{
@@ -104,7 +105,7 @@ CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode
 	}
 
 	canonicalData[,"OldReplicate"]=canonicalData[,"Replicate"]
-	
+
 	# V?rification quadruplet SubjectCode*ProductCode*Replicate*Session unique
 	f=function(x)
 	{
@@ -113,7 +114,7 @@ CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode
 	tmp=aggregate(Session~SubjectCode+ProductCode+Replicate,canonicalData,f)
 	if (transformSessionIntoReplicate == TRUE && max(tmp$Session)>1)
 	{
-		# Recalcul de Replicate qui en prend en compte Session+Replicate		
+		# Recalcul de Replicate qui en prend en compte Session+Replicate
 		canonicalData[,"NewReplicate"]=NA
 		canonicalData[,"SessionRep"]=paste(canonicalData[,"Session"],canonicalData[,"Replicate"])
 		subjects=unique(canonicalData$SubjectCode)
@@ -136,11 +137,11 @@ CheckCanonicalData=function(canonicalData,variables=c("SubjectCode","ProductCode
 			}
 		}
 		canonicalData$Replicate=canonicalData$NewReplicate
-		canonicalData$Replicate = factor(canonicalData$Replicate) 
+		canonicalData$Replicate = factor(canonicalData$Replicate)
 	}
-	
+
 	#res[["CanonicalData"]]=canonicalData[,c(variables,"OldReplicate")]
 	res[["CanonicalData"]]=canonicalData[,c(variables,supplementaryVariables)]
-	
+
 	return (res)
 }

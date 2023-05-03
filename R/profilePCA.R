@@ -1,7 +1,7 @@
 #' profilePCA
-#' 
+#'
 #' Returns PCA.
-#' 
+#'
 #' @param profileObject  profile object stemming from \link{profileReadData}
 #' @param option default to "Covariance". Could also be "Correlation"
 #' @param representation default to "DistanceBiplot". Could also be "twoMaps"
@@ -19,16 +19,18 @@
 #' @param sizeText number allowing to change the size of the text
 #' @param axes default to 1:2
 #' @param repel if TRUE, ggrepel is computed. FALSE by default
-#' @param returnX default to FALSE. If the X axis should be reverted, can be TRUE 
-#' @param returnY default to FALSE. If the Y axis should be reverted, can be TRUE 
+#' @param returnX default to FALSE. If the X axis should be reverted, can be TRUE
+#' @param returnY default to FALSE. If the Y axis should be reverted, can be TRUE
 #' @param expandBiplot default to 1.
+#' @param colorAttributeForBiplot "black" by default
+#'
 #' @export
 #' @importFrom CSUtils PCA turnToPCAgg plotPCAgg
-#' @examples 
+#' @examples
 #' data(cheeses)
 #' profilePCA(cheeses)
-#' 
-profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="DistanceBiplot",confInt=0.9,repel=FALSE,nbAxes="Auto",ellipsesType="Barycentric",returnX=F,returnY=F,productColors=FALSE,outputs="",ellipsesCalculation="Chi",bootstrap=FALSE,nSamples=100,twoDiffFiles=TRUE,itemsToPlot=c("ProductEllipses"),onlySignificantAttributesInMultivariateAnalysis=TRUE,alphaForSelectionOfSignificantAttributes=0.05,sizeText=NULL,expandBiplot=1,colorAttributeForBiplot=NULL)
+#'
+profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="DistanceBiplot",confInt=0.9,repel=FALSE,nbAxes="Auto",ellipsesType="Barycentric",returnX=F,returnY=F,productColors=FALSE,ellipsesCalculation="Chi",bootstrap=FALSE,nSamples=100,twoDiffFiles=TRUE,itemsToPlot=c("ProductEllipses"),onlySignificantAttributesInMultivariateAnalysis=TRUE,alphaForSelectionOfSignificantAttributes=0.05,sizeText=NULL,expandBiplot=1,colorAttributeForBiplot="black")
 {
 	#if(option!="Covariance"&& representation=="DistanceBiplot"){stop(TS_GetLabel("[TS] Biplots should be run only with the covariance option. Please change either the mapping representation or the option"))}
 	if(!profileObject$additionalCalculations)
@@ -37,35 +39,35 @@ profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="D
 	  profileObject=profileSetUnivariateAnalysisParameters(profileObject, model=model, randomEffects="Subject", anovaCalculationMode="Ols", lsMeansAdjustment="Tukey", lsMeansAlpha=.05)
 	  profileObject=TS_SetProfileMultivariateAnalysisParameters(profileObject, onlySignificantAttributesInMultivariateAnalysis,alphaForSelectionOfSignificantAttributes)
 	}
-  
+
   title=paste("PCA ","of"," Score", sep="")
   indSup=c()
 
   if("ProductEllipses" %in% itemsToPlot)
  	{ #itemsToPlot=c("ProductEllipses","Panellists")
-    
+
     indSup=c(indSup,"ell")
-    
+
    	#	ellipsesType="None"
  	}
  	if("Panellists"%in%itemsToPlot)
  	{
  		indSup=c(indSup,"points")
- 	} 
-#  else 
+ 	}
+#  else
 # 	{
 # 		panellists="None"
 # 	}
 # 	if("PanellistLabel"%in%itemsToPlot)
-# 	{	
+# 	{
 # 		panellists="Labels"
 # 	}
 #  if("AttributeLabels"%in%itemsToPlot){variablesLabels=TRUE}else{variablesLabels=FALSE}
 # 	if("ProductLabels"%in%itemsToPlot){text=TRUE}else{text=FALSE}
-	
+
 	revertX=returnX
 	revertY=returnY
-	
+
 	extendedData=profileObject$CompleteExtendedDataWithoutNA
 	removeNonSignificantAttributes=profileObject$OnlySignificantAttributesInMultivariateAnalysis
 	att=c()
@@ -84,8 +86,8 @@ profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="D
 		  {
 		    att=c(att,attribute)
 		  }
-		}	
-		
+		}
+
 		if (length(removedAttributes)>0)
 		{
 			stop(paste("Removed Attributes in PCA",": ",paste(removedAttributes,collapse=", "),"</p>",sep=""))
@@ -104,7 +106,7 @@ profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="D
 	{
 		productColors=NULL
 	}
-	
+
 	colnames(extendedData)[which(colnames(extendedData)=="SubjectCode")]="subject"
 	colnames(extendedData)[which(colnames(extendedData)=="ProductCode")]="product"
 	colnames(extendedData)[which(colnames(extendedData)=="Replicate")]="rep"
@@ -112,8 +114,8 @@ profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="D
 	res.PCA=PCA(extendedData, option=option,representation=representation)
 	pcag=turnToPCAgg(res.PCA,axes=list(axes))
 	res.PlotPCA=plotPCAgg(pcag,type=representation,text=TRUE,n=10,colorInd="all",axes=axes,indSup=indSup,repel=repel,revertX=revertX,revertY=revertY,sizeText=sizeText,expandBiplot=expandBiplot,colorAttributeForBiplot=colorAttributeForBiplot)
-	#res.PlotPCA=PlotPCA(res.PCA, panellists=panellists, representation=representation,  nbAxes=nbAxes, title=title, confInt=confInt, ellipsesType=ellipsesType, productColors=productColors, returnX=returnX, returnY=returnY, type = profileObject$DefaultGraphicalFormat, fileName =fileName,ellipsesCalculation=ellipsesCalculation,bootstrap=bootstrap,nSamples=nSamples,twoDiffFiles=twoDiffFiles,variablesLabels=variablesLabels,individualsLabels=individualLabels)	
-	
+	#res.PlotPCA=PlotPCA(res.PCA, panellists=panellists, representation=representation,  nbAxes=nbAxes, title=title, confInt=confInt, ellipsesType=ellipsesType, productColors=productColors, returnX=returnX, returnY=returnY, type = profileObject$DefaultGraphicalFormat, fileName =fileName,ellipsesCalculation=ellipsesCalculation,bootstrap=bootstrap,nSamples=nSamples,twoDiffFiles=twoDiffFiles,variablesLabels=variablesLabels,individualsLabels=individualLabels)
+
 	# if ("IndividualCoordinates" %in% outputs)
 	# {
 	# 	write.table(cbind(rownames(res.PCA$IndivCoord),res.PCA$IndivCoord),paste("IndividualCoordinates",".csv",sep=""),sep=",",row.names=F)
@@ -122,7 +124,7 @@ profilePCA=function(profileObject,axes=1:2,option="Covariance",representation="D
 	# {
 	# 	write.table(cbind(rownames(res.PCA$VarCoord),res.PCA$VarCoord),paste("VariableCoordinates",".csv",sep=""),sep=",",row.names=F)
 	# }
-	# 
+	#
 	call=list(option=option,representation=representation,confInt=confInt,repel=repel,nbAxes=nbAxes,ellipsesType=ellipsesType,returnX=returnX,returnY=returnY,productColors=productColors,
 	         ellipsesCalculation=ellipsesCalculation,bootstrap=bootstrap,nSamples=nSamples,twoDiffFiles=twoDiffFiles,itemsToPlot=itemsToPlot,
 	         onlySignificantAttributesInMultivariateAnalysis=onlySignificantAttributesInMultivariateAnalysis,alphaForSelectionOfSignificantAttributes=alphaForSelectionOfSignificantAttributes,sizeText=sizeText,expandBiplot=expandBiplot,colorAttributeForBiplot=colorAttributeForBiplot)

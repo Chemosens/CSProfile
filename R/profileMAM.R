@@ -8,7 +8,7 @@
 #'@param negativeCorrection default to TRUE: the negative scaling are NOT taken into account in the sum squares. When FALSE, negative scaling are considered as scaling effect.
 #'@export
 #'@importFrom CSUtils PanelPerformances
-#'@examples 
+#'@examples
 #'data(cheeses)
 #'profileMAM(cheeses)
 profileMAM = function(profileObject, output="MAM.html",correctOnlyIfSignificant=FALSE,limitOfSignificance=0.05,negativeCorrection=TRUE)
@@ -37,7 +37,7 @@ profileMAM = function(profileObject, output="MAM.html",correctOnlyIfSignificant=
 	sumByAtt=apply(dataQuanti,2,sum)
 	indAttWithNA=which(is.na(sumByAtt))
 	attWithNA=names(sumByAtt)[indAttWithNA]
-	TS_LogEntry(paste("NA in",names(attWithNA),": MAM is not possible",sep=""))
+#	warning(paste("NA in",names(attWithNA),": MAM is not possible",sep=""))
 	if(length(indAttWithNA)>0){	dataQuanti=dataQuanti[,-indAttWithNA]}
 	# if(dim(dataQuanti)[2]==0){stop("[TS] No attribute without NA in the data: MAM do not run")} # cas o? tous les attributs ont des NA -> pas de MAM possible
 	input=cbind(SubjectCode,ProductCode,Replicate,dataQuanti)
@@ -47,7 +47,7 @@ profileMAM = function(profileObject, output="MAM.html",correctOnlyIfSignificant=
 	}
 	# on applique la fonction PanelPerformances
 	resultat2=PanelPerformances(frame=input, modelType="mam",negativeCorrection=negativeCorrection,correctOnlyIfSignificant=correctOnlyIfSignificant,limitOfSignificance=limitOfSignificance,onlySignificantDim=FALSE,manovaTest="Hotelling", panelistPerf=FALSE,correlationTest="none")
-	 
+
 	AnovaTables2=resultat2$listAnova
 	txt="<html>"
 	txt=paste(txt,"<h2>","Mixed Assessor Model results","</h2>",sep="")

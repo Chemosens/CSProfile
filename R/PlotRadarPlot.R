@@ -1,8 +1,10 @@
 #'@import fmsb
+#'@importFrom stats aggregate median
+#'@importFrom graphics layout plot.new
 PlotRadarPlot = function(extendedData, productVector, productColors, mainTitle="",titleLegend="", maxScale, minScale, statistic="mean",resAnova=NULL,legend=TRUE,printLimit=FALSE)
-{	
+{
 	# 3 attributs n?cessaires pour trac? un radarplot
-	
+
 	productVector=as.character(productVector)
 
 	# Donn?es aggr?g?es par produit ou attribut
@@ -12,8 +14,8 @@ PlotRadarPlot = function(extendedData, productVector, productColors, mainTitle="
 	# {
 		# stop(TS_GetLabel("InsufficientNumberOfAttributes"))
 	# }
-		
-	# Choix de la statistique 
+
+	# Choix de la statistique
 	if(statistic=="mean")
 	{
 		aggregatedData=aggregate(selectedData,selectedIndividuals , mean,na.rm=TRUE)
@@ -33,7 +35,7 @@ PlotRadarPlot = function(extendedData, productVector, productColors, mainTitle="
 	{
 		for(k in 1:length(colnamesAggregatedData))
 		{
-			
+
 			statF=round(resAnova[[colnamesAggregatedData[k]]][[1]]$FProd,digits=2)
 			stars=resAnova[[colnamesAggregatedData[k]]][[1]]$DiagProd
 			colnamesAggregatedData[k]=paste(colnamesAggregatedData[k],"\n (F=",statF,stars,")",sep="")
@@ -48,10 +50,10 @@ PlotRadarPlot = function(extendedData, productVector, productColors, mainTitle="
 		minScale=rep(minScale,nCols)
 		maxScale=rep(maxScale,nCols)
 		aggregatedData=rbind(minScale,aggregatedData)
-		rownames(aggregatedData)[1]="min"		
+		rownames(aggregatedData)[1]="min"
 		aggregatedData=rbind(maxScale,aggregatedData)
 		rownames(aggregatedData)[1]="max"
-		
+
 		maxmin=TRUE
 	} else
 	{
@@ -81,4 +83,4 @@ PlotRadarPlot = function(extendedData, productVector, productColors, mainTitle="
 	}
 	return(aggregatedData)
   #  graphics.off()
-}	
+}

@@ -4,7 +4,13 @@
 \alias{profileRadarPlot}
 \title{profileRadarPlot}
 \usage{
-profileRadarPlot(profileObject, differentLines = "ProductCode", colors = NULL)
+profileRadarPlot(
+  profileObject,
+  differentLines = "ProductCode",
+  colors = NULL,
+  minScale = 0,
+  maxScale = 100
+)
 }
 \arguments{
 \item{profileObject}{profile object stemming from \link{profileReadData}}

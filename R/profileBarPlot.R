@@ -11,6 +11,7 @@
 #'@examples
 #' data(cheeses)
 #' profileBarPlot(profileObject=cheeses)
+#'@importFrom stats aggregate sd
 profileBarPlot=function(profileObject,variable=profileObject$Attributes[[1]], itemsToPlot=c("GMean","ErrorBars"),errorBars="ConfInt",statsToPlot=c("Means","Sd","N"),groupId="Both")
 {
   variable=as.character(variable)
@@ -25,10 +26,10 @@ profileBarPlot=function(profileObject,variable=profileObject$Attributes[[1]], it
 		{
 			fileName=paste("BarPlot of", " ", fileNameIni,variable,sep="")
 		}
-		title=paste("Mean scores of", " ", variable, " ", "by product",sep="")			
+		title=paste("Mean scores of", " ", variable, " ", "by product",sep="")
 		fun=call("PlotBarPlot",extendedData=profileObject$CompleteExtendedDataWithoutNA, variable=variable,minScore=profileObject$MinScore, maxScore=profileObject$MaxScore, itemsToPlot=itemsToPlot,errorBars=errorBars,statsToPlot=statsToPlot, groupId=groupId, title=title,subtitle="",resAnova=profileObject$Anova[[variable]])
-		resPlotBarPlot=		GenericPlot(type="R",filewidth=9,fileheight=7,CALLFUN=fun)	
-			
+		resPlotBarPlot=		GenericPlot(type="R",filewidth=9,fileheight=7,CALLFUN=fun)
+
 #	}
 	return(resPlotBarPlot)
 }
