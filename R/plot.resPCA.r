@@ -1,7 +1,8 @@
 #'@title plot.resPCA
 #' @param axes vector containing the two axes to be plotted. Default to c(1,2)
 #' @param respca result of a PCA function. See \link{PCA}
-#' @param type ind or var 
+#' @param type ind or var
+#' @importFrom CSUtils calculateEllipses
 plot.resPCA=function(respca,type="ind",axes=c(1,2))
 {
   x=y=name=product=NULL
@@ -29,7 +30,7 @@ plot.resPCA=function(respca,type="ind",axes=c(1,2))
       yy <- center[2] + r * sin(tt)
       return(data.frame(x = xx, y = yy))
     }
-    
+
     dat <- circleFun()
     #geom_path will do open circles, geom_polygon will do filled circles
     df=data.frame(name=rownames(respca$VarCoord),x=respca$VarCoord[,axes[1]],y=respca$VarCoord[,axes[2]])

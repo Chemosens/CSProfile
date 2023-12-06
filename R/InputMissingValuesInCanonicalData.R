@@ -2,23 +2,23 @@ InputMissingValuesInCanonicalData = function(canonicalData, replaceNA="crossmean
 {
 	#TODO : moyenner les doublons?
 	completeData=CompleteCanonicalData(canonicalData,percentageOfSubjectsByReplicate=percentageOfSubjectsByReplicate, percentageOfReplicatesBySubject=percentageOfReplicatesBySubject,percentageOfProductBySubject=percentageOfProductBySubject)$CompleteCanonicalData
-	
+
 
 	if (replaceNA %in% c("zeros","Zeros"))
 	{
-		# Score remplacé par 0
-		completeData[,variable]=replace(completeData[,variable], is.na(completeData[,variable]), 0)
+
+		completeData[,variable]=replace(completeData[,variable], is.na(completeData[,variable]), 0)# Score remplace par 0
 	}
 	if (replaceNA %in% c("colmean","Colmean"))
 	{
-		# Score remplacé par moyenne de score
-		completeData[,variable]=replace(completeData[,variable], is.na(completeData[,variable]), mean(completeData[,variable],na.rm=TRUE))
+
+		completeData[,variable]=replace(completeData[,variable], is.na(completeData[,variable]), mean(completeData[,variable],na.rm=TRUE))	# Score remplace par moyenne de score
 	}
-	
+
 	if (replaceNA %in% c("crossmean","Crossmean"))
 	{
-		# Valeur = moyenne produit + moyenne juge - moyenne totale
-		indices=which(is.na(completeData[,variable]))
+
+		indices=which(is.na(completeData[,variable]))	# Valeur = moyenne produit + moyenne juge - moyenne totale
 		for (indice in indices)
 		{
 			productCode=completeData[indice,"ProductCode"]

@@ -18,6 +18,10 @@ profileRadarPlot(
 \item{differentLines}{default to "ProductCode"}
 
 \item{colors}{colors for the lines to be plotted}
+
+\item{minScale}{number corresponding to the minimal value to be displayed in the radarplot}
+
+\item{maxScale}{number corresponding to the maximal value to be displayed in the radarplot}
 }
 \description{
 Returns the radarplot for each descriptors

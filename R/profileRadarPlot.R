@@ -10,6 +10,8 @@
 #'profileRadarPlot(cheeses)
 #'@importFrom stats reshape
 #'@importFrom grDevices rainbow
+#'@param minScale number corresponding to the minimal value to be displayed in the radarplot
+#'@param maxScale number corresponding to the maximal value to be displayed in the radarplot
 profileRadarPlot=function(profileObject,differentLines="ProductCode",colors=NULL,minScale=0,maxScale=100)
 {
 	res=list()

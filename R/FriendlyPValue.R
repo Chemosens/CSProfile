@@ -1,9 +1,9 @@
 FriendlyPValue = function(pvalues)
 {
 	res=NULL
-	for (p.val in pvalues)
+	for (p.val in pvalues)# renvoie la croix associee ? une pvalue
 	{
-		# renvoie la croix associee à une pvalue
+
 		if(is.na(p.val))
 		{
 			fp = ""

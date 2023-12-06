@@ -1,6 +1,6 @@
 data(cheeses)
 mamcapTable=profileCAPTable(profileObject=cheeses,model="MAM")
-overallTable=profileCAPTable(profileObject=cheeses,model="Overall",output="overall.html")
+overallTable=profileCAPTable(profileObject=cheeses,model="Overall",output="overall")
 
 capTable=profileCAPTable(profileObject=cheeses,model="CAP",output="CAP.html")
 #profileObject,model="MAM",panelLimit=0.05,indivLimit=0.05,output="CAPTable",correction=FALSE,correlationTest="Kendall", indivRepLimCap=0.01, indivAgLimCap=0.2, repInIndModel=FALSE)

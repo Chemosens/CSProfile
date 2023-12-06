@@ -1,9 +1,9 @@
-library("chemosensR")
+library("CSProfile")
 
 profileObject=profileReadData(file="./data/profile.csv",allData=NULL,outputsCsv=NULL,
                               replaceNA="crossmean", language="en",sep=";",
                               transformSessionIntoReplicate=TRUE,
-                              percentageOfSubjectsByReplicate=0, 
+                              percentageOfSubjectsByReplicate=0,
                               percentageOfReplicatesBySubject=0,percentageOfProductBySubject=0)
 
 res_anova=profileAnova(profileObject,model="DefaultModel", randomEffects=c("Subject"), lsMeansAlpha=0.10, lsMeansAdjustment="Tukey", anovaCalculationMode="Ols", show=c("Groups","StatMANOVA","F", "PValues","RMSE"),fileName=NULL,varianceTest="None", normalityTest="None",orderByF=TRUE)
@@ -26,7 +26,7 @@ res_radarplot=profileRadarPlot(profileObject)
 res_radarplot
 # General statistics around profileObject
 res_flashtable=profileFlashTable(profileObject,classificationMethod="Complete", explainedVariance=0.5, alphaContrast=0.1, similarity="Pearson", fileName="Flash table", show="",contrastOption="GMean",contrastProduct=NULL)
-res_flashtable  
+res_flashtable
 # Use of MAM model
 res_mam=profileMAM(profileObject)
 res_mam
