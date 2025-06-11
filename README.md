@@ -5,17 +5,20 @@ Installation
 To install CSProfile, you can use the devtools package to install it directly from GitHub:
 
 ## Install devtools if not already installed
+```{r}
 install.packages("devtools")
-
+```
 ## Install CSUtils and CSProfile from GitHub
+```{r}
 devtools::install_github("ChemoSens/CSUtils")
 devtools::install_github("ChemoSens/CSProfile")
-
+```
 Ensure that you have the necessary dependencies installed. If you encounter issues, please refer to the package's documentation or the GitHub repository for troubleshooting tips.
 Usage
 
 After installation, load the package into your R session:
+```{r}
 library(CSUtils)
 library(CSProfile)
-
+```
 You can then begin using the functions provided by CSProfile to analyze your chemical profiling data and see the vignette in CSProfile/vignette/vignetteProfil.Rmd. 
