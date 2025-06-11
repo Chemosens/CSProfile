@@ -4,10 +4,10 @@ Installation
 
 To install CSProfile, you can use the devtools package to install it directly from GitHub:
 
-# Install devtools if not already installed
+## Install devtools if not already installed
 install.packages("devtools")
 
-# Install CSProfile from GitHub
+## Install CSUtils and CSProfile from GitHub
 devtools::install_github("ChemoSens/CSUtils")
 devtools::install_github("ChemoSens/CSProfile")
 
