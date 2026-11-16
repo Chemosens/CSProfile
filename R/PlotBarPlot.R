@@ -1,7 +1,7 @@
 #'@importFrom graphics lines par text abline mtext barplot
 #'@importFrom stats as.formula qnorm
 #'@importFrom grDevices colorRampPalette rainbow
-PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, itemsToPlot=c("GMean","ErrorBars"),errorBars="ConfInt",statsToPlot=c("Means","Sd","N"), groupId="both", title="Mean scores by product",subtitle="",ylab="Score",resAnova=NULL,printLegend=TRUE,LSAlpha=0.05)
+PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, itemsToPlot=c("GMean","ErrorBars"),errorBars="ConfInt",statsToPlot=c("Means","Sd","N"), groupId="both", title="Mean scores by product",subtitle="",ylab="Score",resAnova=NULL,printLegend=TRUE,LSAlpha=0.05,plotType="base",plotPoints=FALSE)
 {
 	listRes=list()
 	# gestion des éventuels paramètres manquants
@@ -115,6 +115,154 @@ PlotBarPlot=function(extendedData, variable, minScore=NULL, maxScore=NULL, items
 		productStdError=tAlpha*dataForCalculation[,"std"]/sqrt(dataForCalculation[,"n"]);names(productStdError)=dataForCalculation [,"ProductCode"]
 		listRes[["ProductStdError"]]=productStdError
 	}
+
+	if (plotType == "gg")
+	{
+	  library(ggplot2)
+
+	  # Statistiques par produit (dans l'ordre des moyennes croissantes)
+	  df_bar <- data.frame(
+	    ProductCode = factor(products, levels = products),
+	    Mean = as.numeric(productMeans[products]),
+	    stringsAsFactors = FALSE
+	  )
+	  aggSd <- aggregate(extendedData[, variable], by = list(extendedData$ProductCode), FUN = sd, na.rm = TRUE)
+	  aggN <- aggregate(extendedData[, variable], by = list(extendedData$ProductCode), FUN = LengthWithoutNA)
+	  df_bar$Sd <- aggSd[match(products, as.character(aggSd[, 1])), 2]
+	  df_bar$N <- aggN[match(products, as.character(aggN[, 1])), 2]
+
+	  # Barres d'erreur
+	  df_bar$Lower <- NA_real_
+	  df_bar$Upper <- NA_real_
+	  if ("ErrorBars" %in% itemsToPlot)
+	  {
+	    if (errorBars == "ConfInt" && !is.null(resAnova))
+	    {
+	      mp <- as.data.frame(resAnova[[1]]$MoyProd)
+	      idx <- match(products, as.character(mp[, "ProductCode"]))
+	      df_bar$Lower <- mp[idx, "lower.CL"]
+	      df_bar$Upper <- mp[idx, "upper.CL"]
+	    }
+	    if (errorBars == "StdDev")
+	    {
+	      df_bar$Lower <- df_bar$Mean - df_bar$Sd
+	      df_bar$Upper <- df_bar$Mean + df_bar$Sd
+	    }
+	    if (errorBars %in% c("StdError", "StdErr"))
+	    {
+	      halfWidth <- qnorm(1 - (LSAlpha / 2)) * df_bar$Sd / sqrt(df_bar$N)
+	      df_bar$Lower <- df_bar$Mean - halfWidth
+	      df_bar$Upper <- df_bar$Mean + halfWidth
+	    }
+	  }
+
+	  # Groupes : lettres et couleurs (même logique que PlotBoxPlot en gg)
+	  df_bar$Letters <- ""
+	  df_bar$Color <- "gray"
+	  if (!is.null(resAnova))
+	  {
+	    grpNum <- gsub(" ", "", as.character(productGroupsNum[products]))
+	    df_bar$Letters <- vapply(grpNum, function(g) {
+	      ids <- suppressWarnings(as.numeric(strsplit(g, "")[[1]]))
+	      paste(letters[ids[!is.na(ids)]], collapse = "")
+	    }, character(1))
+	    if (groupId %in% c("colors", "Colors", "both", "Both", "ColorsAndLetters"))
+	    {
+	      allIds <- suppressWarnings(as.numeric(unlist(strsplit(grpNum, ""))))
+	      maxG <- max(c(1, allIds), na.rm = TRUE)
+	      groupColorsGG <- rainbow(maxG)
+	      df_bar$Color <- vapply(grpNum, function(g) {
+	        ids <- suppressWarnings(as.numeric(strsplit(g, "")[[1]]))
+	        ids <- ids[!is.na(ids)]
+	        if (length(ids) == 0) return("lightgray")
+	        if (length(ids) == 1) return(groupColorsGG[ids])
+	        grDevices::colorRampPalette(groupColorsGG[ids])(3)[2]
+	      }, character(1))
+	    }
+	  }
+
+	  # Etiquettes des produits : nom (lettres) + effectif
+	  xLabels <- products
+	  if (groupId %in% c("letters", "Letters", "both", "Both", "ColorsAndLetters") && !is.null(resAnova))
+	  {
+	    xLabels <- paste0(xLabels, " (", df_bar$Letters, ")")
+	  }
+	  if ("n" %in% statsToPlot || "N" %in% statsToPlot)
+	  {
+	    xLabels <- paste0(xLabels, "\nn=", df_bar$N)
+	  }
+	  names(xLabels) <- products
+
+	  # Texte "moyenne +- écart-type" au-dessus de la barre ou de la barre d'erreur
+	  df_bar$TextY <- pmax(df_bar$Mean, df_bar$Upper, na.rm = TRUE)
+
+	  p <- ggplot(df_bar, aes(x = ProductCode, y = Mean)) +
+	    geom_col(aes(fill = Color), width = 0.65, color = "black", linewidth = 0.4) +
+	    scale_fill_identity()
+
+	  if (plotPoints)
+	  {
+	    df_pts <- data.frame(
+	      ProductCode = factor(as.character(extendedData$ProductCode), levels = products),
+	      Y = extendedData[, variable]
+	    )
+	    df_pts <- df_pts[!is.na(df_pts$ProductCode), ]
+	    p <- p + geom_jitter(data = df_pts, aes(x = ProductCode, y = Y), inherit.aes = FALSE,
+	                         width = 0.15, height = 0, shape = 16, size = 1.5,
+	                         alpha = 0.5, color = "gray20", na.rm = TRUE)
+	  }
+	  if ("ErrorBars" %in% itemsToPlot && any(!is.na(df_bar$Lower)))
+	  {
+	    p <- p + geom_errorbar(aes(ymin = Lower, ymax = Upper), width = 0.2, na.rm = TRUE)
+	  }
+	  if ("means" %in% statsToPlot || "Means" %in% statsToPlot)
+	  {
+	    p <- p + geom_text(aes(y = TextY, label = paste0(round(Mean, 2), "+-", round(Sd, 2))),
+	                       vjust = -0.6, size = 3)
+	  }
+	  if ("GMean" %in% itemsToPlot)
+	  {
+	    GMean <- mean(extendedData[, variable], na.rm = TRUE)
+	    p <- p + geom_hline(yintercept = GMean, color = "blue") +
+	      annotate("text", x = 0.6, y = GMean, label = round(GMean, 2),
+	               color = "blue", vjust = -0.5, hjust = 0, size = 3)
+	  }
+
+	  # Légende sous le graphique (modèle, F, p, post-hoc)
+	  captionText <- NULL
+	  if (printLegend)
+	  {
+	    if ("ErrorBars" %in% itemsToPlot) captionText <- c(captionText, paste0("Error bars: ", errorBars))
+	    if (!is.null(resAnova))
+	    {
+	      captionText <- c(captionText,
+	                       paste0("Model: ", resAnova[[1]]$Model),
+	                       paste0("FProd=", round(resAnova[[1]]$FProd, 2), ", p=", FriendlyPValue(resAnova[[1]]$PProd)),
+	                       paste0("PostHocTest: ", resAnova[[1]]$LSMeansAdjustment, ", alpha=", resAnova[[1]]$LSMeansAlpha))
+	    }
+	    captionText <- paste(captionText, collapse = "\n")
+	  }
+
+	  p <- p +
+	    scale_x_discrete(labels = xLabels) +
+	    expand_limits(y = c(0, maxScore)) +
+	    labs(title = title, subtitle = subtitle, x = NULL, y = ylab, caption = captionText) +
+	    theme_classic() +
+	    theme(legend.position = "none",
+	          plot.caption = element_text(hjust = 0, face = "italic"))
+	  if (nbProd > 4)
+	  {
+	    p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+	  }
+
+	  print(p)
+
+	  listRes[["ErrorBars"]] <- setNames(df_bar$Sd, products)
+	  listRes[["Bounds"]] <- data.frame(ProductCode = products, Lower = df_bar$Lower, Upper = df_bar$Upper)
+	  listRes[["plot"]] <- p
+	  return(invisible(listRes))
+	}
+
 	if(nbProd>4)
 	{
 		par(mar=c(6,4,2,4))

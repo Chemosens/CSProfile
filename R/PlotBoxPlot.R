@@ -1,7 +1,7 @@
 #'@importFrom graphics boxplot par text abline title segments points
 #'@importFrom stats na.omit
 #'@importFrom grDevices colorRampPalette rainbow
-PlotBoxPlot=function(dataFrame,resAnova, minScore=NULL, maxScore=NULL, overallBoxplot=TRUE, plotMeans=TRUE, plotStats=TRUE, groupId="both",main="Distribution of scores",subtitle="",xlab="Product",ylab="Score")
+PlotBoxPlot=function(dataFrame,resAnova, minScore=NULL, maxScore=NULL, overallBoxplot=TRUE, plotMeans=TRUE, plotStats=TRUE, groupId="both",main="Distribution of scores",subtitle="",xlab="Product",ylab="Score", plotType="base", plotPoints=TRUE)
 {
 
 	X=dataFrame
@@ -31,6 +31,295 @@ PlotBoxPlot=function(dataFrame,resAnova, minScore=NULL, maxScore=NULL, overallBo
 	sortedBoxplotStats=boxplotObject$stats[,sortVector]
 	sortedBoxplotNames=boxplotObject$names[sortVector]
 	sortedProductsSd=productsSd[sortVector]
+	
+	
+	if (plotType == "gg") {
+	  
+	  library(ggplot2)
+	  
+	  # Données ordonnées
+	  products <- sortedBoxplotNames
+	  nbProducts <- length(products)
+	  
+	  df_plot <- X
+	  df_plot$ProductCode <- factor(
+	    df_plot$ProductCode,
+	    levels = products
+	  )
+	  
+	  # Groupes de significativité
+	  df_groups <- data.frame(
+	    ProductCode = products,
+	    stringsAsFactors = FALSE
+	  )
+	  
+	  # productGroups n'est calculé que dans la branche "base" : on le calcule ici
+	  # (colonne 7 = ".group" d'emmeans ; on enlève les espaces de cadrage, ex. " 23 ")
+	  if (nbProducts > 1 && !is.null(resAnova)) {
+	    productGroups <- as.data.frame(resAnova[[1]]$MoyProd)
+	    colnames(productGroups)[7] <- "Groups"
+
+	    df_groups$Groups <- gsub(" ", "", as.character(productGroups[
+	      match(products, as.character(productGroups[, "ProductCode"])),
+	      "Groups"
+	    ]))
+
+	  } else {
+	    df_groups$Groups <- "1"
+	  }
+	  
+	  # Conversion des groupes en lettres
+	  df_groups$Letters <- vapply(
+	    df_groups$Groups,
+	    function(g) {
+	      if (is.na(g) || g == "") return("")
+	      ids <- as.numeric(strsplit(g, "")[[1]])
+	      paste(letters[ids], collapse = "")
+	    },
+	    character(1)
+	  )
+	  
+	  # Palette des groupes
+	  maxG <- max(
+	    as.numeric(unlist(strsplit(
+	      na.omit(df_groups$Groups), ""
+	    ))),
+	    na.rm = TRUE
+	  )
+	  
+	  if (!is.finite(maxG)) maxG <- 1
+	  
+	  groupColors <- rainbow(maxG)
+	  names(groupColors) <- letters[seq_len(maxG)]
+	  
+	  # Couleurs des produits
+	  df_groups$Color <- vapply(
+	    df_groups$Groups,
+	    function(g) {
+	      ids <- as.numeric(strsplit(g, "")[[1]])
+	      ids <- ids[!is.na(ids)]
+	      
+	      if (length(ids) == 0) return("lightgray")
+	      
+	      colors <- groupColors[ids]
+	      
+	      if (length(colors) == 1) return(colors)
+	      
+	      # Couleur moyenne pour les produits appartenant
+	      # à plusieurs groupes
+	      grDevices::colorRampPalette(colors)(3)[2]
+	    },
+	    character(1)
+	  )
+	  
+	  # Statistiques par produit
+	  df_stats <- data.frame(
+	    ProductCode = products,
+	    Mean = sortedProductsMean[seq_len(nbProducts)],
+	    N = sortedNbObs[seq_len(nbProducts)],
+	    Median = sortedMedians,
+	    Q1 = sortedBoxplotStats[2, seq_len(nbProducts)],
+	    Q3 = sortedBoxplotStats[4, seq_len(nbProducts)]
+	  )
+	  
+	  # match() plutôt que merge() : garde l'ordre et le facteur ProductCode
+	  idx <- match(as.character(df_plot$ProductCode), products)
+	  df_plot$Letters <- df_groups$Letters[idx]
+	  df_plot$Color <- df_groups$Color[idx]
+	  df_stats$Letters <- df_groups$Letters
+	  df_stats$Color <- df_groups$Color
+	  df_stats$ProductCode <- factor(df_stats$ProductCode, levels = products)
+	  
+	  # Position des lettres
+	  df_stats$LetterY <- maxScore +
+	    2 * (maxScore - minScore) / 100
+	  
+	  # Graphique
+	  p <- ggplot(
+	    df_plot,
+	    aes(x = ProductCode, y = Y)
+	  ) +
+	    
+	    geom_boxplot(
+	      aes(fill = Color),
+	      width = 0.65,
+	      color = "black",
+	      linewidth = 0.6,
+	      outlier.shape = if (plotPoints) NA else 2,
+	      na.rm = TRUE
+	    ) +
+
+	    scale_fill_identity() +
+
+	    # Points individuels (jitter horizontal seulement, pour ne pas fausser les scores)
+	    {
+	      if (plotPoints) {
+	        geom_jitter(
+	          width = 0.15,
+	          height = 0,
+	          shape = 16,
+	          size = 1.5,
+	          alpha = 0.5,
+	          color = "gray20",
+	          na.rm = TRUE
+	        )
+	      }
+	    } +
+	    
+	    # Moyennes
+	    {
+	      if (plotMeans) {
+	        geom_point(
+	          data = df_stats,
+	          aes(x = ProductCode, y = Mean),
+	          inherit.aes = FALSE,
+	          shape = 3,
+	          color = "blue",
+	          size = 3
+	        )
+	      }
+	    } +
+	    
+	    # Lettres de significativité
+	    {
+	      if (groupId %in% c(
+	        "letters", "Letters",
+	        "both", "Both", "ColorsAndLetters"
+	      )) {
+	        geom_text(
+	          data = df_stats,
+	          aes(
+	            x = ProductCode,
+	            y = LetterY,
+	            label = Letters
+	          ),
+	          inherit.aes = FALSE,
+	          size = 4
+	        )
+	      }
+	    } +
+	    
+	    # Moyennes et effectifs
+	    {
+	      if (plotStats) {
+	        list(geom_text(
+	          data = df_stats,
+	          aes(
+	            x = ProductCode,
+	            y = minScore -
+	              5 * (maxScore - minScore) / 100,
+	            label = paste0("m=", round(Mean, 3))
+	          ),
+	          inherit.aes = FALSE,
+	          color = "blue",
+	          size = 3
+	        ),
+	          geom_text(
+	            data = df_stats,
+	            aes(
+	              x = ProductCode,
+	              y = minScore -
+	                8 * (maxScore - minScore) / 100,
+	              label = paste0("n=", N)
+	            ),
+	            inherit.aes = FALSE,
+	            color = "blue",
+	            size = 3
+	          ))
+	      }
+	    } +
+	    
+	    scale_y_continuous(
+	      limits = c(
+	        minScore - 10 * (maxScore - minScore) / 100,
+	        maxScore + 5 * (maxScore - minScore) / 100
+	      )
+	    ) +
+	    
+	    labs(
+	      title = main,
+	      subtitle = subtitle,
+	      x = xlab,
+	      y = ylab
+	    ) +
+	    
+	    theme_classic() +
+	    
+	    theme(
+	      axis.text.x = element_text(
+	        angle = 45,
+	        hjust = 1,
+	        vjust = 1
+	      ),
+	      legend.position = "none"
+	    )
+	  
+	  # Boxplot global
+	  if (overallBoxplot && nbProducts > 1) {
+	    
+	    df_overall <- data.frame(
+	      ProductCode = factor("Overall",
+	                           levels = c(products, "Overall")),
+	      Y = X[, "Y"]
+	    )
+	    
+	    p <- p +
+	      geom_boxplot(
+	        data = df_overall,
+	        aes(x = ProductCode, y = Y),
+	        inherit.aes = FALSE,
+	        fill = "lightblue",
+	        color = "black",
+	        width = 0.65,
+	        linewidth = 0.6,
+	        outlier.shape = if (plotPoints) NA else 2,
+	        na.rm = TRUE
+	      ) +
+
+	      {
+	        if (plotPoints) {
+	          geom_jitter(
+	            data = df_overall,
+	            aes(x = ProductCode, y = Y),
+	            inherit.aes = FALSE,
+	            width = 0.15,
+	            height = 0,
+	            shape = 16,
+	            size = 1.5,
+	            alpha = 0.5,
+	            color = "gray20",
+	            na.rm = TRUE
+	          )
+	        }
+	      } +
+
+	      geom_vline(
+	        xintercept = nbProducts + 0.5,
+	        color = "gray"
+	      ) +
+	      scale_x_discrete(limits = c(products, "Overall"))
+	    
+	  }
+	  
+	  print(p)
+
+	  # Retour identique à la version base (stats + lettres des groupes)
+	  statsMatrix <- matrix(sortedBoxplotStats, nrow = 5)
+	  colnames(statsMatrix) <- products
+	  if (overallBoxplot && nbProducts > 1) {
+	    statsMatrix <- cbind(statsMatrix,
+	                         boxplot(X[, "Y"], plot = FALSE)$stats)
+	    colnames(statsMatrix)[ncol(statsMatrix)] <- "Overall"
+	  }
+	  rownames(statsMatrix) <- c("Min", "Q1", "Med", "Q3", "Max")
+	  productLetter <- df_groups$Letters
+	  names(productLetter) <- products
+	  listResults <- list(stats = statsMatrix, groups = productLetter, plot = p)
+	  return(invisible(listResults))
+	}
+	
+	if(plotType=="base")
+	{
 	nbBoxplots=max(1,ncol(sortedBoxplotStats))
 	nbBoxplotsWithoutOverall=nbBoxplots
 
@@ -191,4 +480,5 @@ PlotBoxPlot=function(dataFrame,resAnova, minScore=NULL, maxScore=NULL, overallBo
 	listResults=list(sortedBoxplotStats,productLetter)
 	names(listResults)=c("stats","groups")
 	return(listResults)
+	}
 }

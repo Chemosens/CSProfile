@@ -9,7 +9,8 @@ profileRadarPlot(
   differentLines = "ProductCode",
   colors = NULL,
   minScale = 0,
-  maxScale = 100
+  maxScale = 100,
+  plotType = "base"
 )
 }
 \arguments{
@@ -22,6 +23,11 @@ profileRadarPlot(
 \item{minScale}{number corresponding to the minimal value to be displayed in the radarplot}
 
 \item{maxScale}{number corresponding to the maximal value to be displayed in the radarplot}
+
+\item{plotType}{default to "base" (fmsb). "gg" draws the radarplot with ggplot2.}
+}
+\value{
+with plotType="base", a list whose first element is the aggregated data; with plotType="gg", its first element is a list with "data" and "plot" (the ggplot object, e.g. res[[1]]$plot + theme(legend.position="bottom"))
 }
 \description{
 Returns the radarplot for each descriptors

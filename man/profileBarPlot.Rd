@@ -10,7 +10,9 @@ profileBarPlot(
   itemsToPlot = c("GMean", "ErrorBars"),
   errorBars = "ConfInt",
   statsToPlot = c("Means", "Sd", "N"),
-  groupId = "Both"
+  groupId = "Both",
+  plotType = "base",
+  plotPoints = FALSE
 )
 }
 \arguments{
@@ -25,6 +27,13 @@ profileBarPlot(
 \item{statsToPlot}{default to c("Means","Sd","N"). A subset of these stats is also available}
 
 \item{groupId}{default to "Both". Can also be "letters" or "colors".}
+
+\item{plotType}{default to "base". "gg" draws the barplot with ggplot2.}
+
+\item{plotPoints}{default to FALSE. With plotType="gg", add the individual scores as jittered points.}
+}
+\value{
+a list; with plotType="gg", its first element contains "plot" (the ggplot object, e.g. res[[1]]$plot + theme_bw())
 }
 \description{
 Returns barplots with ANOVA results and post-hoc tests (if selected in profileObject)

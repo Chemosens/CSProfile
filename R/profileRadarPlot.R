@@ -12,7 +12,9 @@
 #'@importFrom grDevices rainbow
 #'@param minScale number corresponding to the minimal value to be displayed in the radarplot
 #'@param maxScale number corresponding to the maximal value to be displayed in the radarplot
-profileRadarPlot=function(profileObject,differentLines="ProductCode",colors=NULL,minScale=0,maxScale=100)
+#'@param plotType default to "base" (fmsb). "gg" draws the radarplot with ggplot2.
+#'@return with plotType="base", a list whose first element is the aggregated data; with plotType="gg", its first element is a list with "data" and "plot" (the ggplot object, e.g. res[[1]]$plot + theme(legend.position="bottom"))
+profileRadarPlot=function(profileObject,differentLines="ProductCode",colors=NULL,minScale=0,maxScale=100,plotType="base")
 {
 	res=list()
 	#minScale=profileObject$MinScore
@@ -36,7 +38,7 @@ profileRadarPlot=function(profileObject,differentLines="ProductCode",colors=NULL
 	    names(colors)=profileObject$Products
 	  }
 	  extendedData=profileObject$CompleteExtendedDataWithoutNA[,descriptorsWithVariability[!descriptorsWithVariability%in%attToRemove]]
-		fun=call("PlotRadarPlot",extendedData=extendedData,productVector=as.character(profileObject$CompleteExtendedDataWithoutNA[,"ProductCode"]), productColors=colors, mainTitle="Products Radar Plot",titleLegend="Product", maxScale=maxScale, minScale=minScale, statistic="mean",resAnova=profileObject$Anova)
+		fun=call("PlotRadarPlot",extendedData=extendedData,productVector=as.character(profileObject$CompleteExtendedDataWithoutNA[,"ProductCode"]), productColors=colors, mainTitle="Products Radar Plot",titleLegend="Product", maxScale=maxScale, minScale=minScale, statistic="mean",resAnova=profileObject$Anova,plotType=plotType)
 
 	}
 	if(differentLines=="AttributeCode")
@@ -52,7 +54,7 @@ profileRadarPlot=function(profileObject,differentLines="ProductCode",colors=NULL
 
 	extendedData=profileObject$CompleteExtendedDataWithoutNA[,descriptorsWithVariability[!descriptorsWithVariability%in%attToRemove]]
 
-	fun=call("PlotRadarPlot",extendedData=extendedData,productVector=as.character(reshapedData[,"AttributeCode"]), productColors=colors, mainTitle="Radar Plot",titleLegend="Attribute", maxScale=maxScale, minScale=minScale, statistic="mean",resAnova=NULL)
+	fun=call("PlotRadarPlot",extendedData=extendedData,productVector=as.character(reshapedData[,"AttributeCode"]), productColors=colors, mainTitle="Radar Plot",titleLegend="Attribute", maxScale=maxScale, minScale=minScale, statistic="mean",resAnova=NULL,plotType=plotType)
 	}
 	res=GenericPlot(type="R",fileName="",filewidth=9,fileheight=7,CALLFUN=fun)
 	return(res)

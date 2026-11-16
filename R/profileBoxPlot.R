@@ -7,15 +7,18 @@
 #'@param plotMeans default to TRUE. Should the means be plotted with crosses ?
 #'@param plotStats default to TRUE. Should the stats be displayed
 #'@param groupId default to "both". Can also be "letters" or "colors".
+#'@param plotType default to "base". "gg" draws the boxplot with ggplot2.
+#'@param plotPoints default to FALSE. With plotType="gg", add the individual scores as jittered points.
+#'@return a list whose first element contains "stats", "groups" and, with plotType="gg", "plot" (the ggplot object, e.g. res[[1]]$plot + theme_bw())
 #'@export
 #'@importFrom stats aggregate sd
-profileBoxPlot=function(profileObject,variable, overallBoxplot=TRUE, plotMeans=TRUE, plotStats=TRUE, groupId="both")
+profileBoxPlot=function(profileObject,variable, overallBoxplot=TRUE, plotMeans=TRUE, plotStats=TRUE, groupId="both",plotType="base",plotPoints=FALSE)
 {
   variable=as.character(variable)
 	dataFrame=profileObject$CompleteExtendedDataWithoutNA[,c("SubjectCode","Replicate","ProductCode",variable)]
 	colnames(dataFrame)[4]="Y"
 	resAnova=profileObject$Anova[[variable]]
-	fun=call("PlotBoxPlot", dataFrame=dataFrame,resAnova=resAnova,minScore=profileObject$MinScore, maxScore=profileObject$MaxScore, overallBoxplot=overallBoxplot, plotMeans=plotMeans, plotStats=plotStats, groupId=groupId,main=paste0("Boxplot: ",variable),subtitle="",xlab="Product",ylab=variable)
+	fun=call("PlotBoxPlot", dataFrame=dataFrame,resAnova=resAnova,minScore=profileObject$MinScore, maxScore=profileObject$MaxScore, overallBoxplot=overallBoxplot, plotMeans=plotMeans, plotStats=plotStats, groupId=groupId,main=paste0("Boxplot: ",variable),subtitle="",xlab="Product",ylab=variable,plotType=plotType,plotPoints=plotPoints)
 	res=GenericPlot(type="R",fileName="",filewidth=9,fileheight=7,CALLFUN=fun)
 	return(res)
 }

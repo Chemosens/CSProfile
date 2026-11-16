@@ -10,7 +10,9 @@ profileBoxPlot(
   overallBoxplot = TRUE,
   plotMeans = TRUE,
   plotStats = TRUE,
-  groupId = "both"
+  groupId = "both",
+  plotType = "base",
+  plotPoints = FALSE
 )
 }
 \arguments{
@@ -25,6 +27,13 @@ profileBoxPlot(
 \item{plotStats}{default to TRUE. Should the stats be displayed}
 
 \item{groupId}{default to "both". Can also be "letters" or "colors".}
+
+\item{plotType}{default to "base". "gg" draws the boxplot with ggplot2.}
+
+\item{plotPoints}{default to FALSE. With plotType="gg", add the individual scores as jittered points.}
+}
+\value{
+a list whose first element contains "stats", "groups" and, with plotType="gg", "plot" (the ggplot object, e.g. res[[1]]$plot + theme_bw())
 }
 \description{
 Returns the boxplot of descriptors per products with ANOVA and tests posthoc results

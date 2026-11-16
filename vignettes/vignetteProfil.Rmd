@@ -19,8 +19,14 @@ knitr::opts_chunk$set(echo = FALSE)
 CSProfile aims to analyze data from different protocols of sensory analysis -especially providing from TimeSens software ,but not only-. 
 This vignette is dedicated to sensory profiling. 
 
+```{r eval=FALSE}
+install.packages(devtools)
+devtools::install_github("ChemoSens/CSUtils")
+devtools::install_github("ChemoSens/CSProfile")
+```
 
 ```{r, eval=TRUE,echo=TRUE,message=FALSE}
+library(CSUtils)
 library(CSProfile)
 ```
 
@@ -51,7 +57,7 @@ res_stats=profileDescriptiveStatistics(profileObject,by="ProductCode")
 <!-- ``` -->
 ## Boxplots
 ```{r, eval=TRUE,echo=TRUE,warning=FALSE}
-res_boxplot=profileBoxPlot(profileObject,variable="Butter")
+res_boxplot=profileBoxPlot(profileObject,variable="Butter",plotType="gg")
 ```
 
 ## Barplots

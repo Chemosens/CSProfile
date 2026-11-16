@@ -10,7 +10,7 @@ License: GPL-3
 Depends: R (>= 4.0.1)
 Packaged: 2020-12-10 16:36:37 UTC; Caroline
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Imports: ggplot2,
 	stringr,
 	doBy,
